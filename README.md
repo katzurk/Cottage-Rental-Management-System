@@ -1,24 +1,30 @@
-# Temat: Protal randkowy - aplikacja
-(temat może ulec zmianie po konsultacji z prowadzącym, pomimo pisania do p. Żbikowskiego w pon. rano dziś w środę dalej nie uzyskaliśmy odpowiedzi)
+# Temat: Temat: MojaChata.pl - aplikacja do wynajmowania mieszkań
 
 ## Zakres projektu
 W ramach projektu zespół ma przygotować niewielką aplikację umożliwiającą tworzenie, edycję i wyszukiwanie informacji w zadanej przez prowadzącego bazie danych typu relacyjnego lub dokumentowego (NoSQL).
 Na każdym etapie oprócz tworzonego kodu oceniane będą takie elementy jak projekt interfejsu użytkownika, zarządzanie źródłami, tworzenie testów automatycznych, ciągła integracja oprogramowania.
 
 ## Wymagania
-- wykorzystanie bazy danych
-- kod aplikacji napisany w języku java z wykorzystaniem framework'u spring
-- interfejs użytkownika umożliwia wykonywanie podstawowych operacji na bazie danych
-    - dodanie rekordu - użytkownika portal
-    - usunięcie rekordu - użytkownika portal
-    - zmiana rekordu
-    - wyszukiwanie rekordu - innych użytkowników z bazy
-    - możliwość połączenia lub odrzucenia konkretnej wyswietlanej osoby/użytkownik
-
-
+    • wykorzystanie bazy danych typu relacyjnego (W)
+    • kod aplikacji napisany w języku java z wykorzystaniem framework'u spring (P)
+    • interfejs umożliwia wykonywanie operacji:
+        1. dodanie mieszkania na wynajem (W)
+        2. usunięcie mieszkania na wynajem (W)
+        3. zmiana parametrów mieszkania na wynajem (W)
+        4. wyszukiwanie dostępnych mieszkań do wynajęcia (K)
+        5. możliwość rezerwacji mieszkania, które chcemy wynająć (K)
+        6. filtrowanie po cenie, rozmiarze i destynacji mieszkania (K)
+        7. możliwość akceptacji lub odrzucenia zgłoszenia przez właściciela (P)
+        8. dodanie opini (P)
+        9. usunięcie opini (P)
+        10. przeglądać tylko swoje mieszkania (T)
+        11. logowanie do aplikacji (T)
+        12. powiadomienie o zainteresowaniu mieszkaniem (zmiana koloru moje mieszkania)(T)
+        13. * historia
+        14. * anulowanie rezerwacji
 
 ## Członkowie zespołu:
-- Weronika Maślana
-- Katarzyna Kanicka
-- Paweł Marton
-- Tomasz Foryś
+    • Weronika Maślana (wyżej W)
+    • Katarzyna Kanicka (wyżej K)
+    • Paweł Marton (wyżej P)
+    • Tomasz Foryś (wyżej T)
