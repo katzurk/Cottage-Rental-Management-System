@@ -29,13 +29,13 @@ public class CottageController {
         }
 
         cottageRepository.save(cottage);
-        return "redirect:/index";
+        return "redirect:/my-cottages";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/my-cottages")
     public String showCottageList(Model model) {
         model.addAttribute("cottages", cottageRepository.findAll());
-        return "index";
+        return "my-cottages";
     }
 
     @GetMapping("/edit/{id}")
@@ -56,7 +56,7 @@ public class CottageController {
         }
 
         cottageRepository.save(cottage);
-        return "redirect:/index";
+        return "redirect:/my-cottages";
     }
 
     @GetMapping("/delete/{id}")
@@ -64,7 +64,7 @@ public class CottageController {
         Cottage cottage = cottageRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Invalid cottage Id:" + id));
         cottageRepository.delete(cottage);
-        return "redirect:/index";
+        return "redirect:/my-cottages";
     }
 
 }
