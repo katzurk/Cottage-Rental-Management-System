@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Getting Started: Serving Web Content</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <style>
+        table, th, td {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 3px solid #a2a0c0;
+            text-align: left;
+        }
+        tr:hover {background-color: #c5c6fa;}
+        a.buttonEdit {
+            background-color: #37638d;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
+        a.buttonDelete {
+            background-color: #721c2f;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
+        a.buttonAdd {
+            background-color: #285f21;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
+    </style>
+    <body>
+        <div th:switch="${cottages}">
+            <h2 th:case="null">No cottages yet!</h2>
+                <div th:case="*">
+                    <h2>Cottages</h2>
+                    <table style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width:20%">Name</th>
+                                <th style="width:20%">Address</th>
+                                <th>Size</th>
+                                <th>RoomsNumber</th>
+                                <th>BathroomsNumber</th>
+                                <th>MaxPeopleNum</th>
+                                <th style="width:10%">Price</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cottage : ${cottages}">
+                                <td th:text="${cottage.name}"></td>
+                                <td th:text="${cottage.address}"></td>
+                                <td th:text="${cottage.size}"></td>
+                                <td th:text="${cottage.roomsNumber}"></td>
+                                <td th:text="${cottage.bathroomsNumber}"></td>
+                                <td th:text="${cottage.maxPeopleNum}"></td>
+                                <td th:text="${cottage.price}"></td>
+                                <td><a th:href="@{/edit/{id}(id=${cottage.id})}" class="buttonEdit">Edit</a></td>
+                                <td><a th:href="@{/delete/{id}(id=${cottage.id})}" class="buttonDelete">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <p><a href="/addcottage" class="buttonAdd">Add a new cottage</a></p>
+        </div>
+    </body>
+</html>
