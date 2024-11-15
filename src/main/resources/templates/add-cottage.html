@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Getting Started: Serving Web Content</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <!-- <p th:text="|Hello, ${name}!|" /> -->
+        <form action="#" th:action="@{/addcottage}" th:object="${cottage}" method="post">
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" placeholder="Name">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            <label for="address">Address</label>
+            <input type="text" th:field="*{address}" id="address" placeholder="Address">
+            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            <label for="size">Size</label>
+            <input type="number" th:field="*{size}" id="size" placeholder="Size">
+            <span th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></span>
+            <label for="roomsNumber">RoomsNumber</label>
+            <input type="number" th:field="*{roomsNumber}" id="roomsNumber" placeholder="RoomsNumber">
+            <span th:if="${#fields.hasErrors('roomsNumber')}" th:errors="*{roomsNumber}"></span>
+            <label for="bathroomsNumber">BathroomsNumber</label>
+            <input type="number" th:field="*{bathroomsNumber}" id="bathroomsNumber" placeholder="BathroomsNumber">
+            <span th:if="${#fields.hasErrors('bathroomsNumber')}" th:errors="*{bathroomsNumber}"></span>
+            <label for="maxPeopleNum">MaxPeopleNum</label>
+            <input type="number" th:field="*{maxPeopleNum}" id="maxPeopleNum" placeholder="MaxPeopleNum">
+            <span th:if="${#fields.hasErrors('maxPeopleNum')}" th:errors="*{maxPeopleNum}"></span>
+            <label for="price">Price</label>
+            <input type="number" th:field="*{price}" id="price" placeholder="Price">
+            <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+
+            <input type="submit" value="Add cottage">
+        </form>
+    </body>
+</html>
