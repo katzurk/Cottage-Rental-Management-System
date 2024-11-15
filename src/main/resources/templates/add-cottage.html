@@ -4,9 +4,28 @@
         <title>Getting Started: Serving Web Content</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
+    <style>
+        input[type="submit"]{
+            background-color: #285f21;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .preserve-space {
+            white-space: pre;
+            text-align: center;
+        }
+    </style>
     <body>
-        <!-- <p th:text="|Hello, ${name}!|" /> -->
-        <form action="#" th:action="@{/addcottage}" th:object="${cottage}" method="post">
+        <h2 style="text-align: center">Add a cottage</h2>
+        <form action="#" class="preserve-space" th:action="@{/addcottage}" th:object="${cottage}" method="post">
             <label for="name">Name</label>
             <input type="text" th:field="*{name}" id="name" placeholder="Name">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
@@ -29,7 +48,7 @@
             <input type="number" th:field="*{price}" id="price" placeholder="Price">
             <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
 
-            <input type="submit" value="Add cottage">
+            <input type="submit" value="Add cottage" class="buttonSubmit">
         </form>
     </body>
 </html>

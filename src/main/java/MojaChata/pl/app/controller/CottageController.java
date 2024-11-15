@@ -17,7 +17,7 @@ public class CottageController {
     @Autowired
     private CottageRepository cottageRepository;
 
-    @GetMapping("/signup")
+    @GetMapping("/addcottage")
     public String showSignUpForm(Cottage cottage) {
         return "add-cottage";
     }
