@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>My Cottages</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <style>
+        body {
+            background-color: #303750;
+        }
+        table, th, td {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 3px solid #0e2849;
+            text-align: left;
+        }
+        tr:hover {background-color: #27518f;}
+        a.buttonEdit {
+            background-color: #37638d;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
+        a.buttonDelete {
+            background-color: #721c2f;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
+        a.buttonAdd {
+            background-color: #285f21;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
+        a.buttonGoToIndex {
+            background-color: #a8470e;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
+    </style>
+    <body>
+        <div th:switch="${cottages}">
+            <h2 th:case="null" style="color: white;">No cottages yet!</h2>
+                <div th:case="*">
+                    <p><a href="/index" class="buttonGoToIndex">MojaChata.pl</a></p>
+                    <h2 style="text-align: center; color: white;">My Cottages</h2>
+                    <p><a href="/addcottage" class="buttonAdd">Add a new cottage</a></p>
+                    <table style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width:20%; color: white;">Name</th>
+                                <th style="width:20%; color: white;">Address</th>
+                                <th style="color: white;">Size</th>
+                                <th style="color: white;">RoomsNumber</th>
+                                <th style="color: white;">BathroomsNumber</th>
+                                <th style="color: white;">MaxPeopleNum</th>
+                                <th style="width:10%; color: white;">Price</th>
+                                <th style="color: white;">Edit</th>
+                                <th style="color: white;">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cottage : ${cottages}">
+                                <td th:text="${cottage.name}" style="color: white;"></td>
+                                <td th:text="${cottage.address}" style="color: white;"></td>
+                                <td th:text="${cottage.size}" style="color: white;"></td>
+                                <td th:text="${cottage.roomsNumber}" style="color: white;"></td>
+                                <td th:text="${cottage.bathroomsNumber}" style="color: white;"></td>
+                                <td th:text="${cottage.maxPeopleNum}" style="color: white;"></td>
+                                <td th:text="${cottage.price}" style="color: white;"></td>
+                                <td><a th:href="@{/edit/{id}(id=${cottage.id})}" class="buttonEdit">Edit</a></td>
+                                <td><a th:href="@{/delete/{id}(id=${cottage.id})}" class="buttonDelete">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </body>
+</html>

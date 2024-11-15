@@ -6,8 +6,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <style>
+        body {
+            background-color: #303750;
+        }
         input[type="submit"]{
-            background-color: #37638d;
+            background-color: #285f21;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -19,47 +22,55 @@
             cursor: pointer;
             border-radius: 4px;
         }
+        a.buttonCancel {
+            background-color: #37638d;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 4px;
+        }
         .preserve-space {
             white-space: pre;
             text-align: center;
         }
     </style>
     <body>
-        <h2 style="text-align: center">Edit a cottage</h2>
+        <h2 style="text-align: center; color: white;">Edit a cottage</h2>
         <form action="#" class="preserve-space"
         th:action="@{/update/{id}(id=${cottage.id})}"
         th:object="${cottage}"
         method="post" >
-            <label for="name">Name</label>
+            <label for="name" style="color: white;">Name</label>
             <input type="text" th:field="*{name}" id="name" placeholder="Name">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-            <br>
-            <label for="address">Address</label>
+            <label for="address" style="color: white;">Address</label>
             <input type="text" th:field="*{address}" id="address" placeholder="Address">
             <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
-            <br>
-            <label for="size">Size</label>
+            <label for="size" style="color: white;">Size</label>
             <input type="number" th:field="*{size}" id="size" placeholder="Size">
             <span th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></span>
-            <br>
-            <label for="roomsNumber">RoomsNumber</label>
+            <label for="roomsNumber" style="color: white;">RoomsNumber</label>
             <input type="number" th:field="*{roomsNumber}" id="roomsNumber" placeholder="RoomsNumber">
             <span th:if="${#fields.hasErrors('roomsNumber')}" th:errors="*{roomsNumber}"></span>
-            <br>
-            <label for="bathroomsNumber">BathroomsNumber</label>
+            <label for="bathroomsNumber" style="color: white;">BathroomsNumber</label>
             <input type="number" th:field="*{bathroomsNumber}" id="bathroomsNumber" placeholder="BathroomsNumber">
             <span th:if="${#fields.hasErrors('bathroomsNumber')}" th:errors="*{bathroomsNumber}"></span>
-            <br>
-            <label for="maxPeopleNum">MaxPeopleNum</label>
+            <label for="maxPeopleNum" style="color: white;">MaxPeopleNum</label>
             <input type="number" th:field="*{maxPeopleNum}" id="maxPeopleNum" placeholder="MaxPeopleNum">
             <span th:if="${#fields.hasErrors('maxPeopleNum')}" th:errors="*{maxPeopleNum}"></span>
-            <br>
-            <label for="price">Price</label>
+            <label for="price" style="color: white;">Price</label>
             <input type="number" th:field="*{price}" id="price" placeholder="Price">
             <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-            <br> <br>
 
-            <input type="submit" value="Update cottage">
+            <p style="text-align: center;">
+                <input type="submit" value="Update cottage" class="buttonSubmit">
+                <a href="/my-cottages" class="buttonCancel">Cancel</a></p>
         </form>
     </body>
 </html>
