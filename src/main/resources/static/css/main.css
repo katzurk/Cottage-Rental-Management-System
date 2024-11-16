@@ -1,0 +1,77 @@
+body {
+    background-color: #303750;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+th, td {
+    border-collapse: collapse;
+    padding: 8px;
+    border-bottom: 3px solid #0e2849;
+    text-align: left;
+    color: white;
+}
+tr:hover {background-color: #27518f;}
+
+.logo {
+    height: 50px;
+    background-color: #0e2849;
+    margin: -8px;
+    padding: 20px;
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.go-to-index {
+    background-color: #a8470e;
+}
+.go-to-subpage {
+    background-color: #37638d;
+}
+.login {
+    background-color: #308616;
+}
+
+.cancel {
+    background-color: #37638d;
+}
+.edit {
+    background-color: #37638d;
+}
+.delete {
+    background-color: #721c2f;
+}
+.add {
+    background-color: #285f21;
+}
+
+input[type="submit"]{
+    background-color: #285f21;
+}
+.preserve-space {
+    white-space: pre;
+    text-align: center;
+}
+.error-message {
+    color: red;
+}
+.input-label {
+    color: white;
+}

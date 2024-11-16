@@ -3,63 +3,25 @@
     <head>
         <title>MojaChata.pl</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
     </head>
-    <style>
-        body {
-            background-color: #303750;
-        }
-        a.buttonGoToIndex {
-            background-color: #a8470e;
-			border: none;
-			color: white;
-			padding: 10px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 4px 2px;
-			cursor: pointer;
-			border-radius: 4px;
-        }
-        a.buttonGoTo {
-            background-color: #37638d;
-			border: none;
-			color: white;
-			padding: 10px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 4px 2px;
-			cursor: pointer;
-			border-radius: 4px;
-        }
-        a.buttonLogin {
-            background-color: #308616;
-			border: none;
-			color: white;
-			padding: 10px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 4px 2px;
-			cursor: pointer;
-			border-radius: 4px;
-        }
-
-    </style>
     <body>
+        <div class="logo">
+            <a href="/index" class="button go-to-index">MojaChata.pl</a>
+            <a href="/index" class="button login">Login</a>
+        </div>
         <div th:switch="${cottages}">
-            <p><a href="/index" class="buttonGoToIndex">MojaChata.pl</a>
-                <a href="/index" class="buttonLogin">Login</a></p>
-            <h2 style="text-align: center; color: white;">For rent</h2>
-            <p style="text-align: center;"><a href="/index" class="buttonGoTo">Go to my reservations</a>
-                <a href="/index" class="buttonGoTo">Find a cottage</a></p>
+            <h2>For rent</h2>
+            <p style="text-align: center;">
+                <a href="/index" class="button go-to-subpage">Go to my reservations</a>
+                <a href="/index" class="button go-to-subpage">Find a cottage</a>
+            </p>
 
-            <hr width="90%" size="3" color="black" noshade>
-            <h2 style="text-align: center; color: white;">My cottages</h2>
-            <p style="text-align: center;"><a href="/my-cottages" class="buttonGoTo">Go to my cottages</a></p>
+            <hr width="90%" size="3" color="#0e2849" noshade>
+            <h2>My cottages</h2>
+            <p style="text-align: center;">
+                <a href="/my-cottages" class="button go-to-subpage">Go to my cottages</a>
+            </p>
         </div>
     </body>
 </html>
