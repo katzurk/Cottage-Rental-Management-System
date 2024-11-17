@@ -4,6 +4,8 @@ public class SearchDTO {
     private String address;
     private Integer minPrice;
     private Integer maxPrice;
+    private Integer minSize;
+    private Integer maxSize;
 
     SearchDTO() {};
 
@@ -26,5 +28,19 @@ public class SearchDTO {
     }
     public void setMaxPrice(Integer maxPrice) {
         this.maxPrice = maxPrice;
+    }
+
+    public Integer getMinSize() {
+        return minSize;
+    }
+    public void setMinSize(Integer minSize) {
+        this.minSize = minSize;
+    }
+
+    public Integer getMaxSize() {
+        return maxSize;
+    }
+    public void setMaxSize(Integer maxSize) {
+        this.maxSize = maxSize;
     }
 }

@@ -25,7 +25,17 @@
                 <label for="maxPrice" class="input-label">Max Price:</label>
                 <input type="number" id="maxPrice" th:field="*{maxPrice}" placeholder="Enter max price" min="0" />
             </div>
+        </div>
 
+        <div class="single-column">
+            <div class="form-item">
+                <label for="minSize" class="input-label">Min Size:</label>
+                <input type="number" id="minSize" th:field="*{minSize}" placeholder="Enter min size" min="0" />
+            </div>
+            <div class="form-item">
+                <label for="maxSize" class="input-label">Max Size:</label>
+                <input type="number" id="maxSize" th:field="*{maxSize}" placeholder="Enter max size" min="0" />
+            </div>
         </div>
 
         <input type="submit" value="Search" class="button">
@@ -45,6 +55,7 @@
                 <th>Number of Bathrooms</th>
                 <th>Maximum Number of People</th>
                 <th style="width:10%;">Price</th>
+                <th>Rent</th>
             </tr>
             </thead>
             <tbody>
@@ -56,6 +67,7 @@
                 <td th:text="${cottage.bathroomsNumber}"></td>
                 <td th:text="${cottage.maxPeopleNum}"></td>
                 <td th:text="${cottage.price}"></td>
+                <td><a class="button edit">Rent</a></td>
             </tr>
             </tbody>
         </table>

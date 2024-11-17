@@ -13,7 +13,9 @@ public class CottageService {
         return cottageRepository.searchCottage(
                 search.getAddress(),
                 search.getMinPrice(),
-                search.getMaxPrice()
+                search.getMaxPrice(),
+                search.getMinSize(),
+                search.getMaxSize()
         );
     }
 }
