@@ -1,5 +1,6 @@
 package MojaChata.pl.app.controller;
 
+import MojaChata.pl.app.model.CottageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import MojaChata.pl.app.model.Cottage;
 import MojaChata.pl.app.model.CottageRepository;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class CottageController {
     @Autowired
     private CottageRepository cottageRepository;
+    @Autowired
+    private CottageService cottageService;
 
     @GetMapping("/addcottage")
     public String showSignUpForm(Cottage cottage) {
@@ -65,6 +71,11 @@ public class CottageController {
         .orElseThrow(() -> new IllegalArgumentException("Invalid cottage Id:" + id));
         cottageRepository.delete(cottage);
         return "redirect:/my-cottages";
+    }
+
+    @GetMapping("/search")
+    public List<Cottage> searchCottage(@RequestParam(required = false) String address) {
+        return cottageService.searchCottage(address);
     }
 
 }
