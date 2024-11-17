@@ -74,8 +74,10 @@ public class CottageController {
     }
 
     @GetMapping("/search")
-    public List<Cottage> searchCottage(@RequestParam(required = false) String address) {
-        return cottageService.searchCottage(address);
+    public String searchCottage(@RequestParam(required = false) String address, Model model) {
+        List<Cottage> cottages = cottageService.searchCottage(address);
+        model.addAttribute("cottages", cottages);
+        return "search-cottage";
     }
 
 }
