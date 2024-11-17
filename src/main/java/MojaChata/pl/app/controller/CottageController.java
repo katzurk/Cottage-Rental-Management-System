@@ -1,18 +1,16 @@
 package MojaChata.pl.app.controller;
 
 import MojaChata.pl.app.model.CottageService;
+import MojaChata.pl.app.model.SearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import MojaChata.pl.app.model.Cottage;
 import MojaChata.pl.app.model.CottageRepository;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -74,12 +72,10 @@ public class CottageController {
     }
 
     @GetMapping("/search")
-    public String searchCottage(
-            @RequestParam(required = false) String address,
-            @RequestParam(required = false) Integer minPrice,
-            @RequestParam(required = false) Integer maxPrice,
-            Model model) {
-        List<Cottage> cottages = cottageService.searchCottage(address, minPrice, maxPrice);
+    public String searchCottage(@ModelAttribute SearchDTO search, Model model) {
+        List<Cottage> cottages = cottageService.searchCottage(search);
+
+        model.addAttribute("searchDTO", search);
         model.addAttribute("cottages", cottages);
         return "search-cottage";
     }
