@@ -10,15 +10,23 @@
     <a href="/index" class="button go-to-index">MojaChata.pl</a>
 </div>
 <div>
-    <form action="/search" method="get" th:object="${searchDTO}">
-        <label for="address" class="input-label">Address:</label>
-        <input type="text" id="address" th:field="*{address}" placeholder="Enter address" />
+    <form action="/search" method="get" th:object="${searchDTO}" class="form-container">
+        <div class="form-item">
+            <label for="address" class="input-label">Address:</label>
+            <input type="text" id="address" th:field="*{address}" placeholder="Enter address" />
+        </div>
 
-        <label for="minPrice" class="input-label">Min Price:</label>
-        <input type="number" id="minPrice" th:field="*{minPrice}" placeholder="Enter min price" min="0" />
+        <div class="single-column">
+            <div class="form-item">
+                <label for="minPrice" class="input-label">Min Price:</label>
+                <input type="number" id="minPrice" th:field="*{minPrice}" placeholder="Enter min price" min="0" />
+            </div>
+            <div class="form-item">
+                <label for="maxPrice" class="input-label">Max Price:</label>
+                <input type="number" id="maxPrice" th:field="*{maxPrice}" placeholder="Enter max price" min="0" />
+            </div>
 
-        <label for="maxPrice" class="input-label">Max Price:</label>
-        <input type="number" id="maxPrice" th:field="*{maxPrice}" placeholder="Enter max price" min="0" />
+        </div>
 
         <input type="submit" value="Search" class="button">
     </form>
@@ -51,6 +59,9 @@
             </tr>
             </tbody>
         </table>
+        <div th:if="${#lists.isEmpty(cottages)}">
+            <h2>No results</h2>
+        </div>
     </div>
 </div>
 </body>
