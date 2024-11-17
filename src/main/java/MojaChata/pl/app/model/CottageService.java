@@ -9,7 +9,7 @@ public class CottageService {
     @Autowired
     private CottageRepository cottageRepository;
 
-    public List<Cottage> searchCottage(String address) {
-        return cottageRepository.searchCottage(address);
+    public List<Cottage> searchCottage(String address, Integer minPrice, Integer maxPrice) {
+        return cottageRepository.searchCottage(address, minPrice, maxPrice);
     }
 }

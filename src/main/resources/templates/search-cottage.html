@@ -6,40 +6,49 @@
     <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 <body>
-<div class="logo">
-    <a href="/index" class="button go-to-index">MojaChata.pl</a>
-</div>
-
-<form action="/search" method="get">
-    <input type="text" name="address" placeholder="Enter address" />
-    <button type="submit">Search</button>
-</form>
-
-<table>
-    <thead>
-    <tr>
-        <th style="width:20%;">Name</th>
-        <th style="width:20%;">Address</th>
-        <th>Size</th>
-        <th>Number of Rooms</th>
-        <th>Number of Bathrooms</th>
-        <th>Maximum Number of People</th>
-        <th style="width:10%;">Price</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Loop through cottages and display them in the table -->
-    <tr th:each="cottage : ${cottages}">
-        <td th:text="${cottage.name}"></td>
-        <td th:text="${cottage.address}"></td>
-        <td th:text="${cottage.size}"></td>
-        <td th:text="${cottage.roomsNumber}"></td>
-        <td th:text="${cottage.bathroomsNumber}"></td>
-        <td th:text="${cottage.maxPeopleNum}"></td>
-        <td th:text="${cottage.price}"></td>
-    </tr>
-    </tbody>
-</table>
-
+    <div class="logo">
+        <a href="/index" class="button go-to-index">MojaChata.pl</a>
+    </div>
+    <div>
+        <form action="/search" method="get">
+            <label for="Address" class="input-label">Address:</label>
+            <input type="text" name="address" id="Address" placeholder="Enter address" />
+            <label for="minPrice" class="input-label">Min Price:</label>
+            <input type="number" name="minPrice" id="minPrice" placeholder="Enter min price" min="0"/>
+            <label for="maxPrice" class="input-label">Min Price:</label>
+            <input type="number" name="maxPrice" id="maxPrice" placeholder="Enter max price" min="0"/>
+            <input type="submit" value="Submit" class="button">
+        </form>>
+    </div>
+    <br>
+    <div th:switch="${cottages}">
+        <h2 th:case="null" >No results</h2>
+        <div th:case="*">
+            <table>
+                <thead>
+                <tr>
+                    <th style="width:20%;">Name</th>
+                    <th style="width:20%;">Address</th>
+                    <th>Size</th>
+                    <th>Number of Rooms</th>
+                    <th>Number of Bathrooms</th>
+                    <th>Maximum Number of People</th>
+                    <th style="width:10%;">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cottage : ${cottages}">
+                    <td th:text="${cottage.name}"></td>
+                    <td th:text="${cottage.address}"></td>
+                    <td th:text="${cottage.size}"></td>
+                    <td th:text="${cottage.roomsNumber}"></td>
+                    <td th:text="${cottage.bathroomsNumber}"></td>
+                    <td th:text="${cottage.maxPeopleNum}"></td>
+                    <td th:text="${cottage.price}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

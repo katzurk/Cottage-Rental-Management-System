@@ -9,6 +9,11 @@ import java.util.List;
 
 @Repository
 public interface CottageRepository extends CrudRepository<Cottage, Long> {
-    @Query("SELECT a FROM Cottage a WHERE (:address IS NULL OR a.address LIKE %:address%)")
-    List<Cottage> searchCottage(@Param("address") String address);
+    @Query("SELECT a FROM Cottage a WHERE (:address IS NULL OR a.address LIKE %:address%)" +
+            "AND (:minPrice IS NULL OR a.price >= :minPrice)" +
+            "AND (:maxPrice IS NULL OR a.price <= :maxPrice)")
+    List<Cottage> searchCottage(
+            @Param("address") String address,
+            @Param("minPrice") Integer minPrice,
+            @Param("maxPrice") Integer maxPrice);
 }
