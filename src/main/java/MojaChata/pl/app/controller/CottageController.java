@@ -18,8 +18,6 @@ import java.util.List;
 public class CottageController {
     @Autowired
     private CottageRepository cottageRepository;
-    @Autowired
-    private CottageService cottageService;
 
     @GetMapping("/addcottage")
     public String showSignUpForm(Cottage cottage) {
@@ -70,15 +68,5 @@ public class CottageController {
         cottageRepository.delete(cottage);
         return "redirect:/my-cottages";
     }
-
-    @GetMapping("/search")
-    public String searchCottage(@ModelAttribute SearchDTO search, Model model) {
-        List<Cottage> cottages = cottageService.searchCottage(search);
-
-        model.addAttribute("searchDTO", search);
-        model.addAttribute("cottages", cottages);
-        return "search-cottage";
-    }
-
 }
 
