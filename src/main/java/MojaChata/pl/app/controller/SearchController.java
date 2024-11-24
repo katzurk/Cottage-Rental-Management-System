@@ -32,7 +32,9 @@ public class SearchController {
     public String sendRequest(@RequestParam("cottageId") long cottageId, Model model) {
         Cottage cottage = cottageRepository.findById(cottageId)
                 .orElseThrow(() -> new RuntimeException("Invalid cottage Id: " + cottageId));
-        requestRepository.save(new Request(cottage, 90, 91)); // test Ids
+        if (!requestRepository.existsBySubmitterIdAndCottageId(90L, cottage.getId())) {
+            requestRepository.save(new Request(cottage, 90, 91)); // placeholders
+        }
         return "redirect:/search";
     }
 }
