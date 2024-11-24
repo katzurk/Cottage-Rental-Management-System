@@ -1,21 +1,23 @@
 package MojaChata.pl.app.controller;
 
+import MojaChata.pl.app.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import MojaChata.pl.app.model.Cottage;
-import MojaChata.pl.app.model.CottageRepository;
 import jakarta.validation.Valid;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CottageController {
     @Autowired
     private CottageRepository cottageRepository;
+    @Autowired
+    private RequestRepository requestRepository;
 
     @GetMapping("/addcottage")
     public String showSignUpForm(Cottage cottage) {
@@ -67,5 +69,21 @@ public class CottageController {
         return "redirect:/my-cottages";
     }
 
+    @GetMapping("/reservations")
+    public String showReservations(Model model) {
+        List<Request> requests = requestRepository.findBySubmitterId(90L); // placeholder
+        List<Cottage> cottages = requests.stream()
+                .map(Request::getCottage)
+                .collect(Collectors.toList());
+        model.addAttribute("cottages", cottages);
+        return "my-reservations";
+    }
+
+    @GetMapping("/unrequest")
+    public String unsendRequest(@RequestParam("cottageId") long cottageId, Model model) {
+        Request request = requestRepository.findBySubmitterIdAndCottageId(90L, cottageId); // placeholder
+        requestRepository.delete(request);
+        return "redirect:/reservations";
+    }
 }
 

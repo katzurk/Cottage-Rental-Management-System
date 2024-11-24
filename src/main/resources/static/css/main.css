@@ -75,3 +75,19 @@ input[type="submit"]{
 .input-label {
     color: white;
 }
+
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-column {
+    display: flex;
+    flex-direction: column;
+}
