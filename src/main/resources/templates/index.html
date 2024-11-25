@@ -8,7 +8,18 @@
     <body>
         <div class="logo">
             <a href="/index" class="button go-to-index">MojaChata.pl</a>
-            <a href="/index" class="button login">Login</a>
+            <a th:if="${session.loggedInUser != null}" 
+                th:href="@{/login}" 
+                th:text="${session.loggedInUser.username}"
+                class="button loggedin">
+            </a>
+            <a th:unless="${session.loggedInUser != null}" 
+            th:href="@{/login}" 
+            th:text="Login" 
+            class="button login">
+            </a>
+
+            <a th:if="${loggedInUser != null}" href="/logout">Logout</a>
         </div>
         <div th:switch="${cottages}">
             <h2>For rent</h2>

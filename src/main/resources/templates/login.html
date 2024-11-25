@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MojaChata.pl</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" th:href="@{/css/main.css}" />
+    </head>
+<body>
+    <div class="logo">
+        <a href="/index" class="button go-to-index">MojaChata.pl</a>
+    </div>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form method="post" action="/login">
+            <div class="error-message" th:if="${error}" th:text="${error}"></div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <a href="/register">
+            <button type="button">Register</button>
+        </a>
+    </div>
+</body>
+</html>
