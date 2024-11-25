@@ -2,6 +2,8 @@ package MojaChata.pl.app.controller;
 
 
 import MojaChata.pl.app.model.*;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +33,12 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        Model model) {
+                        Model model, HttpSession session) {
         Optional<Login> userOpt = loginRepository.findByUsername(username);
         if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
 
             model.addAttribute("loggedInUser", userOpt.get());
+            // System.out.println(session.getAttribute("loggedInUser"));
             return "redirect:/index"; 
         } else {
             model.addAttribute("error", "Invalid username or password.");

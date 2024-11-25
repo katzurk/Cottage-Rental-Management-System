@@ -52,6 +52,9 @@ tr:hover {background-color: #27518f;}
     background-color: #1088bc;
 }
 
+.logout{
+    background-color: #ff3d3d;
+}
 .login-container {
     background-color: white;
     padding: 30px;

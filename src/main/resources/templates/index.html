@@ -10,8 +10,13 @@
             <a href="/index" class="button go-to-index">MojaChata.pl</a>
             <a th:if="${session.loggedInUser != null}" 
                 th:href="@{/login}" 
-                th:text="${session.loggedInUser.username}"
+                th:text="${session.loggedInUser.username}+ ' id: '+${session.loggedInUser.id}"
                 class="button loggedin">
+            </a>
+            <a th:if="${session.loggedInUser != null}" 
+                th:href="@{/logout}" 
+                th:text="'Log out'"
+                class="button logout">
             </a>
             <a th:unless="${session.loggedInUser != null}" 
             th:href="@{/login}" 
@@ -19,7 +24,6 @@
             class="button login">
             </a>
 
-            <a th:if="${loggedInUser != null}" href="/logout">Logout</a>
         </div>
         <div th:switch="${cottages}">
             <h2>For rent</h2>

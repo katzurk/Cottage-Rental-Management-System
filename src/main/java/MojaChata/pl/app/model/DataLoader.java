@@ -18,8 +18,8 @@ public class DataLoader {
     }
 
     private void LoadCottages() {
-        userRepository.save(new Cottage("micro cottage", "mini 5", 23, 1, 1, 2, 10));
-        userRepository.save(new Cottage("the Grand Villa", "epic 20", 600, 100, 50, 100, 120000));
+        userRepository.save(new Cottage("micro cottage", "mini 5", 23, 1, 1, 2, 10, 1));
+        userRepository.save(new Cottage("the Grand Villa", "epic 20", 600, 100, 50, 100, 120000, 1));
     }
 
     private void LoadUsers(){

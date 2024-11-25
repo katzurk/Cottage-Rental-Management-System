@@ -11,7 +11,7 @@ public class Login {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 
     @NotBlank(message = "username is mandatory")
     private String username;
@@ -23,11 +23,11 @@ public class Login {
 
     Login(String username, String password) {
 
-      this.username = username;
-      this.password = password;
+    this.username = username;
+    this.password = password;
     }
 
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 
