@@ -35,7 +35,11 @@
             <hr width="90%" size="3" color="#0e2849" noshade>
             <h2>My cottages</h2>
             <p style="text-align: center;">
-                <a href="/my-cottages" class="button go-to-subpage">Go to my cottages</a>
+                <a href="/my-cottages">
+                <button class="button go-to-subpage"  th:classappend="${hasRequests} ? 'go-to-subpage2' : 'go-to-subpage'">
+                    Go to my cottages
+                </button>
+                </a>
             </p>
         </div>
     </body>

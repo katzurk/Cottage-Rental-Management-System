@@ -45,6 +45,16 @@ tr:hover {background-color: #27518f;}
 .go-to-subpage {
     background-color: #37638d;
 }
+.go-to-subpage2 {
+    background-color: #ff0000;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
 .login {
     background-color: #308616;
 }

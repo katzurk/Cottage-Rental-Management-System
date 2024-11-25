@@ -9,5 +9,7 @@ import java.util.List;
 public interface RequestRepository extends CrudRepository<Request, Long> {
     List<Request> findBySubmitterId(Long submitterId);
     Request findBySubmitterIdAndCottageId(Long submitterId, Long cottageId);
+    List<Request> findByCottageId(Long cottageId);
+    
     boolean existsBySubmitterIdAndCottageId(Long submitterId, Long cottageId);
 }
