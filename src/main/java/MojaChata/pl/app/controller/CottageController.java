@@ -25,18 +25,19 @@ public class CottageController {
     }
 
     @PostMapping("/addcottage")
-    public String addCottage(@Valid Cottage cottage, BindingResult result, Model model) {
+    public String addCottage(@Valid Cottage cottage, BindingResult result, Model model, @SessionAttribute("loggedInUser") Login login) {
         if (result.hasErrors()) {
             return "add-cottage";
         }
-
+        cottage.setOwnerId( login.getId());
         cottageRepository.save(cottage);
         return "redirect:/my-cottages";
     }
 
     @GetMapping("/my-cottages")
-    public String showCottageList(Model model) {
-        model.addAttribute("cottages", cottageRepository.findAll());
+    public String showCottageList(Model model, @SessionAttribute(value = "loggedInUser", required = false) Login login) {
+        if (login!= null)
+            model.addAttribute("cottages", cottageRepository.findByOwnerId(login.getId()));
         return "my-cottages";
     }
 

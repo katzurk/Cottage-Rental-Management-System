@@ -26,9 +26,9 @@ Gotowe!
         7. możliwość akceptacji lub odrzucenia zgłoszenia przez właściciela (P)
         8. dodanie opini (P)
         9. usunięcie opini (P)
-        10. przeglądać tylko swoje mieszkania (T)
-        11. logowanie do aplikacji (T)
-        12. powiadomienie o zainteresowaniu mieszkaniem (zmiana koloru moje mieszkania)(T)
+        10. przeglądać tylko swoje mieszkania (T- DONE)
+        11. logowanie do aplikacji (T - 80%)
+        12. powiadomienie o zainteresowaniu mieszkaniem (zmiana koloru moje mieszkania)(T - 50%)
         13. * historia
         14. * anulowanie rezerwacji
 

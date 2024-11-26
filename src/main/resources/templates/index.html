@@ -8,7 +8,22 @@
     <body>
         <div class="logo">
             <a href="/index" class="button go-to-index">MojaChata.pl</a>
-            <a href="/index" class="button login">Login</a>
+            <a th:if="${session.loggedInUser != null}" 
+                th:href="@{/login}" 
+                th:text="${session.loggedInUser.username}+ ' id: '+${session.loggedInUser.id}"
+                class="button loggedin">
+            </a>
+            <a th:if="${session.loggedInUser != null}" 
+                th:href="@{/logout}" 
+                th:text="'Log out'"
+                class="button logout">
+            </a>
+            <a th:unless="${session.loggedInUser != null}" 
+            th:href="@{/login}" 
+            th:text="Login" 
+            class="button login">
+            </a>
+
         </div>
         <div th:switch="${cottages}">
             <h2>For rent</h2>
@@ -20,7 +35,11 @@
             <hr width="90%" size="3" color="#0e2849" noshade>
             <h2>My cottages</h2>
             <p style="text-align: center;">
-                <a href="/my-cottages" class="button go-to-subpage">Go to my cottages</a>
+                <a href="/my-cottages">
+                <button class="button go-to-subpage"  th:classappend="${hasRequests} ? 'go-to-subpage2' : 'go-to-subpage'">
+                    Go to my cottages
+                </button>
+                </a>
             </p>
         </div>
     </body>
