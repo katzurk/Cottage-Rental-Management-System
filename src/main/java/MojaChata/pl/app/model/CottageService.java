@@ -15,7 +15,9 @@ public class CottageService {
                 search.getMinPrice(),
                 search.getMaxPrice(),
                 search.getMinSize(),
-                search.getMaxSize()
+                search.getMaxSize(),
+                search.getOwnerId()
+
         );
     }
 }

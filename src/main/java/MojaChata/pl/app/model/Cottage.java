@@ -35,10 +35,12 @@ public class Cottage {
     @Positive(message = "Price is mandatory")
     private int price;
 
+    private int ownerId;
+
     // standard constructors / setters / getters / toString
     Cottage() {}
 
-    Cottage(String name, String address, int size, int roomsNumber, int bathroomsNumber, int maxPeopleNum, int price ) {
+    Cottage(String name, String address, int size, int roomsNumber, int bathroomsNumber, int maxPeopleNum, int price, int ownerId ) {
 
       this.name = name;
       this.address = address;
@@ -47,6 +49,7 @@ public class Cottage {
       this.bathroomsNumber = bathroomsNumber;
       this.maxPeopleNum = maxPeopleNum;
       this.price = price;
+      this.ownerId = ownerId;
     }
 
     public Long getId() {
@@ -81,6 +84,10 @@ public class Cottage {
         return this.price;
     }
 
+    public int getOwnerId(){
+        return this.ownerId;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -111,6 +118,10 @@ public class Cottage {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setOwnerId(int id) {
+        this.ownerId = id;
     }
 
     @Override

@@ -9,7 +9,10 @@
         <div class="logo">
             <a href="/index" class="button go-to-index">MojaChata.pl</a>
         </div>
-        <div th:switch="${cottages}">
+        <div th:if="${session.loggedInUser == null}">
+            <h2 >Log in to see your cottages!</h2>
+        </div>
+        <div th:unless = "${session.loggedInUser == null}" th:switch="${cottages}">
             <h2 th:case="null" >No cottages yet!</h2>
             <div th:case="*">
                 <h2 >My Cottages</h2>

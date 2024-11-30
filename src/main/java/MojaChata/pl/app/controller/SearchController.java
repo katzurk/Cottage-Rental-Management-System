@@ -33,7 +33,7 @@ public class SearchController {
         Cottage cottage = cottageRepository.findById(cottageId)
                 .orElseThrow(() -> new RuntimeException("Invalid cottage Id: " + cottageId));
         if (!requestRepository.existsBySubmitterIdAndCottageId(90L, cottage.getId())) {
-            requestRepository.save(new Request(cottage, 90, 91)); // placeholders
+            requestRepository.save(new Request(cottage, 90, cottage.getOwnerId())); // placeholders
         }
         return "redirect:/search";
     }
