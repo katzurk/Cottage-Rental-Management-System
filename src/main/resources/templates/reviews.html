@@ -1,29 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
 <head>
-    <title>MojaChata.pl</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twoje rezerwacje</title>
+    <style>
+        /* Stylowanie strony */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;      /* Wycentrowanie pionowe */
+            height: 100vh;            /* Ustawienie wysokości na 100% widocznej części ekranu */
+            margin: 0;                /* Usunięcie marginesów */
+            font-family: Arial, sans-serif; /* Ustawienie czcionki */
+            background-color: #f0f0f0; /* Kolor tła */
+        }
+        h1 {
+            font-size: 3em;  /* Ustawienie dużego rozmiaru czcionki */
+            color: #333;     /* Kolor tekstu */
+        }
+    </style>
 </head>
 <body>
-<div class="logo">
-    <a href="/index" class="button go-to-index">MojaChata.pl</a>
-</div>
-<div class="login-container">
-    <h1>Login</h1>
-    <form method="post" action="/login">
-        <div class="error-message" th:if="${error}" th:text="${error}"></div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Login</button>
-    </form>
-    <a href="/register">
-        <button type="button">Register</button>
-    </a>
-</div>
+<h1>Twoje Opinie</h1>
 </body>
 </html>
