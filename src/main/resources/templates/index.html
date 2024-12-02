@@ -8,31 +8,33 @@
     <body>
         <div class="logo">
             <a href="/index" class="button go-to-index">MojaChata.pl</a>
-            <a th:if="${session.loggedInUser != null}" 
-                th:href="@{/login}" 
+            <a th:if="${session.loggedInUser != null}"
+                th:href="@{/login}"
                 th:text="${session.loggedInUser.username}+ ' id: '+${session.loggedInUser.id}"
                 class="button loggedin">
             </a>
-            <a th:if="${session.loggedInUser != null}" 
-                th:href="@{/logout}" 
+            <a th:if="${session.loggedInUser != null}"
+                th:href="@{/logout}"
                 th:text="'Log out'"
                 class="button logout">
             </a>
-            <a th:unless="${session.loggedInUser != null}" 
-            th:href="@{/login}" 
-            th:text="Login" 
+            <a th:unless="${session.loggedInUser != null}"
+            th:href="@{/login}"
+            th:text="Login"
             class="button login">
             </a>
 
         </div>
         <div th:switch="${cottages}">
+            <br>
+            <br>
             <h2>For rent</h2>
             <p style="text-align: center;">
                 <a href="/reservations" class="button go-to-subpage">Go to my reservations</a>
                 <a href="/search" class="button go-to-subpage">Find a cottage</a>
             </p>
 
-            <hr width="90%" size="3" color="#0e2849" noshade>
+            <hr width="90%" size="3" color="#230e49" noshade>
             <h2>My cottages</h2>
             <p style="text-align: center;">
                 <a href="/my-cottages">
