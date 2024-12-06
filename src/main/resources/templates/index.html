@@ -30,7 +30,7 @@
             <br>
             <h2>For rent</h2>
             <p style="text-align: center;">
-                <a href="/reservations" class="button go-to-subpage">Go to my reservations</a>
+                <a th:href="@{${session.loggedInUser != null} ? '/reservations' : '/login'}" class="button go-to-subpage">Go to my reservations</a>
                 <a href="/search" class="button go-to-subpage">Find a cottage</a>
             </p>
 

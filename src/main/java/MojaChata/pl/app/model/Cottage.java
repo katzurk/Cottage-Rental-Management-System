@@ -35,7 +35,7 @@ public class Cottage {
     @Positive(message = "Price is mandatory")
     private int price;
 
-    private int ownerId;
+    private long ownerId;
 
     // standard constructors / setters / getters / toString
     Cottage() {}
@@ -84,7 +84,7 @@ public class Cottage {
         return this.price;
     }
 
-    public int getOwnerId(){
+    public long getOwnerId(){
         return this.ownerId;
     }
 
@@ -120,7 +120,7 @@ public class Cottage {
         this.price = price;
     }
 
-    public void setOwnerId(int id) {
+    public void setOwnerId(long id) {
         this.ownerId = id;
     }
 

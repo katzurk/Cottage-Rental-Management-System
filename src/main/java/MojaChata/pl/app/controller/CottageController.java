@@ -29,7 +29,7 @@ public class CottageController {
         if (result.hasErrors()) {
             return "add-cottage";
         }
-        cottage.setOwnerId( login.getId());
+        cottage.setOwnerId(login.getId());
         cottageRepository.save(cottage);
         return "redirect:/my-cottages";
     }
@@ -71,8 +71,9 @@ public class CottageController {
     }
 
     @GetMapping("/reservations")
-    public String showReservations(Model model) {
-        List<Request> requests = requestRepository.findBySubmitterId(90L); // placeholder
+    public String showReservations(@SessionAttribute(value = "loggedInUser", required = false) Login login,
+                                   Model model) {
+        List<Request> requests = requestRepository.findBySubmitterId(login.getId());
         List<Cottage> cottages = requests.stream()
                 .map(Request::getCottage)
                 .collect(Collectors.toList());
@@ -81,8 +82,9 @@ public class CottageController {
     }
 
     @GetMapping("/unrequest")
-    public String unsendRequest(@RequestParam("cottageId") long cottageId, Model model) {
-        Request request = requestRepository.findBySubmitterIdAndCottageId(90L, cottageId); // placeholder
+    public String unsendRequest(@SessionAttribute(value = "loggedInUser", required = false) Login login,
+                                @RequestParam("cottageId") long cottageId, Model model) {
+        Request request = requestRepository.findBySubmitterIdAndCottageId(login.getId(), cottageId);
         requestRepository.delete(request);
         return "redirect:/reservations";
     }

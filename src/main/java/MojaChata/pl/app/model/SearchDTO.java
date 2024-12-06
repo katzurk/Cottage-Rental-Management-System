@@ -6,7 +6,7 @@ public class SearchDTO {
     private Integer maxPrice;
     private Integer minSize;
     private Integer maxSize;
-    private Integer ownerId;
+    private Long ownerId;
     SearchDTO() {};
 
     public String getAddress() {
@@ -26,13 +26,12 @@ public class SearchDTO {
     public Integer getMaxPrice() {
         return maxPrice;
     }
-
-    public Integer getOwnerId() {
-        return this.ownerId;
-    }
     public void setMaxPrice(Integer maxPrice) {
         this.maxPrice = maxPrice;
     }
+
+    public Long getOwnerId() { return this.ownerId; }
+    public void setOwnerId(Long ownerId) { this.ownerId = ownerId; }
 
     public Integer getMinSize() {
         return minSize;
