@@ -51,13 +51,13 @@ Gotowe!
 Zadanie polega na realizacji projektu bazy danych pod wybrane zagadnienie. W ramach projektu należy uszczegółowić zakres pracy.
 
 ## Wymagania:
-    1. model ER (z nazwanymi związkami między encjami), model relacyjny
+    1. model ER (z nazwanymi związkami między encjami), model relacyjny (W)
     2. skrypty DDL do stworzenia schematu bazy danych,
     3. skrypty do załadowania danych,
     4. definicje sekwencji, wyzwalaczy, procedur, funkcji,
     5. skrypty testujące działanie zaprojektowanej bazy,
     6. aplikację napisaną w języku JAVA oraz z wykorzystaniem technologii JDBC lub JPA. Aplikacja ma pozwolić na prostą komunikację/pobieranie danych z zaimplementowanej bazy. W przypadku realizacji łączonej z projektem z przedmiotu PAP, aplikacja powinna być zgodna z wymaganiami z projektu z przedmiotu PAP.
-    7. Minimalna liczba tabel dla projektów zespołowych (3- 4 osoby): 12
+    7. Minimalna liczba tabel dla projektów zespołowych (3- 4 osoby): 12 (W)
     8. krótki opis rozwiązania,
     9. analizę rozwiązania (znane ograniczenia, możliwości dalszego rozwoju oraz inne wnioski),
 
