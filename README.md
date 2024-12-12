@@ -24,7 +24,7 @@ Gotowe!
         4. wyszukiwanie dostępnych mieszkań do wynajęcia (K - 90%)
         5. możliwość rezerwacji mieszkania, które chcemy wynająć (K - 80%)
         6. filtrowanie po cenie, rozmiarze i destynacji mieszkania (K - DONE)
-        7. możliwość akceptacji lub odrzucenia zgłoszenia przez właściciela (P - 0%)
+        7. możliwość akceptacji lub odrzucenia zgłoszenia przez właściciela (K - 0%)
         8. dodanie opini (P -0%)
         9. usunięcie opini (P -0%)
         10. przeglądać tylko swoje mieszkania (T- 100%)
@@ -55,10 +55,10 @@ Zadanie polega na realizacji projektu bazy danych pod wybrane zagadnienie. W ram
     2. skrypty DDL do stworzenia schematu bazy danych, (W-DONE)
     3. skrypty do załadowania danych, (W-DONE)
     4. definicje sekwencji, wyzwalaczy, procedur, funkcji,
-    5. skrypty testujące działanie zaprojektowanej bazy,
+    5. skrypty testujące działanie zaprojektowanej bazy, (K)
     6. aplikację napisaną w języku JAVA oraz z wykorzystaniem technologii JDBC lub JPA. Aplikacja ma pozwolić na prostą komunikację/pobieranie danych z zaimplementowanej bazy. W przypadku realizacji łączonej z projektem z przedmiotu PAP, aplikacja powinna być zgodna z wymaganiami z projektu z przedmiotu PAP.
     7. Minimalna liczba tabel dla projektów zespołowych (3- 4 osoby): 12 (W - DONE)
-    8. krótki opis rozwiązania,
+    8. krótki opis rozwiązania, (K)
     9. analizę rozwiązania (znane ograniczenia, możliwości dalszego rozwoju oraz inne wnioski),
 
 ## Punktacja:
