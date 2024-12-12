@@ -21,9 +21,9 @@ import java.util.Optional;
 
 @Controller
 @SessionAttributes("loggedInUser")
-public class LoginController {
+public class UserController {
     @Autowired
-    private LoginRepository loginRepository;
+    private UserRepository loginRepository;
 
     @GetMapping("/login")
     public String showLoginForm() {
@@ -34,15 +34,15 @@ public class LoginController {
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         Model model, HttpSession session) {
-        Optional<Login> userOpt = loginRepository.findByUsername(username);
-        if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
+        Optional<User> userOpt = loginRepository.findByUsername(username);
+        if (userOpt.isPresent() && userOpt.get().getPasswordHash().equals(password)) {
 
             model.addAttribute("loggedInUser", userOpt.get());
             // System.out.println(session.getAttribute("loggedInUser"));
-            return "redirect:/index"; 
+            return "redirect:/index";
         } else {
             model.addAttribute("error", "Invalid username or password.");
-            
+
             return "login";
         }
     }
@@ -53,13 +53,13 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String registerUser(Login login, @RequestParam("username") String username,
+    public String registerUser(User login, @RequestParam("username") String username,
                            @RequestParam("password") String password,
                            @RequestParam("confirmPassword") String confirmPassword,
                            Model model) {
     if (loginRepository.findByUsername(username).isPresent()) {
         model.addAttribute("error", "Username already exists. Please choose a different one.");
-        return "register"; 
+        return "register";
     }
 
     if (!password.equals(confirmPassword)) {

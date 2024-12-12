@@ -1,27 +1,53 @@
--- inital data
------- cottages
+-- INITAL DATA
+----- COUNTRIES
+SELECT NEXT VALUE FOR COUNTRIES_SEQ;
+INSERT INTO COUNTRIES
+    (COUNTRY_ID, NAME, LANGUAGE, CURRENCY)
+VALUES
+    (1, 'Poland', 'polish', 'zl');
 
-select next value for cottage_seq;
-insert into cottage
-    (id, name, address, size, bathrooms_number, max_people_num, rooms_number, price, owner_id)
-values
-    (1, 'micro cottage', 'mini 5', 23, 1, 1, 2, 10, 1);
+------ CITIES
+SELECT NEXT VALUE FOR CITIES_SEQ;
+INSERT INTO CITIES
+    (CITY_ID, NAME, POPULATION, SIZE, COUNTRY_ID)
+VALUES
+    (1, 'Warsaw', 100000, 250000, 1);
 
-select next value for cottage_seq;
-insert into cottage
-    (id, name, address, size, bathrooms_number, max_people_num, rooms_number, price, owner_id)
-values
-    (2, 'the Grand Villa', 'epic 20', 600, 100, 50, 100, 120000, 1);
+------ ADRESSES
+SELECT NEXT VALUE FOR ADDRESSES_SEQ;
+INSERT INTO ADDRESSES
+    (ADDRESS_ID, STREET, POSTAL_CODE, CITY_ID)
+VALUES
+    (1, 'Mini 5', '01-123', 1);
 
-------- users
-select next value for login_seq;
-insert into login
-    (id, username, password)
-values
+SELECT NEXT VALUE FOR ADDRESSES_SEQ;
+INSERT INTO ADDRESSES
+    (ADDRESS_ID, STREET, POSTAL_CODE, CITY_ID)
+VALUES
+    (2, 'Epic 20', '03-456', 1);
+
+------- USERS
+SELECT NEXT VALUE FOR USERS_SEQ;
+INSERT INTO USERS
+    (USER_ID, USERNAME, PASSWORD_HASH)
+VALUES
     (1, 'Jan', 'Kowalski');
 
-select next value for login_seq;
-insert into login
-    (id, username, password)
-values
+SELECT NEXT VALUE FOR USERS_SEQ;
+INSERT INTO USERS
+    (USER_ID, USERNAME, PASSWORD_HASH)
+VALUES
     (2, 'w', '1');
+
+------ COTTAGES
+SELECT NEXT VALUE FOR COTTAGES_SEQ;
+INSERT INTO COTTAGES
+    (COTTAGE_ID, NAME, ADDRESS_ID, SIZE_M2, BATHROOMS_NUMBER, MAX_PEOPLE_NUM, ROOMS_NUMBER, MIN_PRICE_PER_DAY, OWNER_ID)
+VALUES
+    (1, 'Micro Cottage', 1, 23, 1, 1, 2, 10.89, 1);
+
+SELECT NEXT VALUE FOR COTTAGES_SEQ;
+INSERT INTO COTTAGES
+    (COTTAGE_ID, NAME, ADDRESS_ID, SIZE_M2, BATHROOMS_NUMBER, MAX_PEOPLE_NUM, ROOMS_NUMBER, MIN_PRICE_PER_DAY, OWNER_ID)
+VALUES
+    (2, 'The Grand Villa', 2, 600, 100, 50, 100, 49.99, 1);
