@@ -1,30 +1,31 @@
 package MojaChata.pl.app.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
-@Entity
-public class Login {
+@Entity(name = "users")
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private long id;
 
     @NotBlank(message = "username is mandatory")
     private String username;
 
+    @Column(name = "password_hash")
     @NotBlank(message = "password is mandatory")
-    private String password;
+    private String passwordHash;
 
-    Login(){}
+    User() {}
 
-    Login(String username, String password) {
+    User(String username, String passwordHash) {
+    // TODO: add hashing for password
 
     this.username = username;
-    this.password = password;
+    this.passwordHash = passwordHash;
     }
 
     public long getId() {
@@ -35,22 +36,22 @@ public class Login {
         return this.username;
     }
 
-    public String getPassword() {
-        return this.password;
+    public String getPasswordHash() {
+        return this.passwordHash;
     }
 
     public void setusername(String username) {
         this.username = username;
     }
 
-    public void setpassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String newPasswordHash) {
+        this.passwordHash = newPasswordHash;
     }
-    
+
 
     @Override
     public String toString() {
-        return "User{" + "id=" + this.id + ", username='" + this.username + '\'' + ", password='" + this.password + '}';
+        return "User{" + "id=" + this.id + ", username='" + this.username + '\'' + ", password='" + this.passwordHash + '}';
     }
 
 }

@@ -22,7 +22,7 @@ tr:hover {background-color: #27518f;}
 
 .logo {
     height: 50px;
-    background-color: #230e49;
+    background-color: #18161c;
     margin: -8px;
     padding: 20px;
 }
@@ -46,7 +46,7 @@ tr:hover {background-color: #27518f;}
     background-color: #37638d;
 }
 .go-to-subpage2 {
-    background-color: #ff0000;
+    background-color: #721c2f;
     animation: blink 1.5s infinite;
 }
 

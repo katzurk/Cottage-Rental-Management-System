@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import MojaChata.pl.app.model.Cottage;
 import MojaChata.pl.app.model.CottageRepository;
-import MojaChata.pl.app.model.Login;
+import MojaChata.pl.app.model.User;
 import MojaChata.pl.app.model.RequestRepository;
 
 @Controller
@@ -24,7 +24,7 @@ public class StartPageController {
 
 
     @GetMapping("/index")
-    public String mainPage(Model model, @SessionAttribute(value = "loggedInUser", required = false) Login login) {
+    public String mainPage(Model model, @SessionAttribute(value = "loggedInUser", required = false) User login) {
     boolean hasRequests = false;
 
     if (login != null) {
@@ -35,7 +35,7 @@ public class StartPageController {
         hasRequests = userCottages.stream()
             .anyMatch(cottage -> !requestRepository.findByCottageId(cottage.getId()).isEmpty());
         }
-        
+
     model.addAttribute("hasRequests", hasRequests);
     return "index";
 }

@@ -20,12 +20,12 @@ public class CottageController {
     private RequestRepository requestRepository;
 
     @GetMapping("/addcottage")
-    public String showSignUpForm(Cottage cottage) {
+    public String showAddCottageForm(Cottage cottage) {
         return "add-cottage";
     }
 
     @PostMapping("/addcottage")
-    public String addCottage(@Valid Cottage cottage, BindingResult result, Model model, @SessionAttribute("loggedInUser") Login login) {
+    public String addCottage(@Valid Cottage cottage, BindingResult result, Model model, @SessionAttribute("loggedInUser") User login) {
         if (result.hasErrors()) {
             return "add-cottage";
         }
@@ -35,7 +35,7 @@ public class CottageController {
     }
 
     @GetMapping("/my-cottages")
-    public String showCottageList(Model model, @SessionAttribute(value = "loggedInUser", required = false) Login login) {
+    public String showCottageList(Model model, @SessionAttribute(value = "loggedInUser", required = false) User login) {
         if (login!= null)
             model.addAttribute("cottages", cottageRepository.findByOwnerId(login.getId()));
         return "my-cottages";
@@ -71,9 +71,9 @@ public class CottageController {
     }
 
     @GetMapping("/reservations")
-    public String showReservations(@SessionAttribute(value = "loggedInUser", required = false) Login login,
+    public String showReservations(@SessionAttribute(value = "loggedInUser", required = false) User login,
                                    Model model) {
-        List<Request> requests = requestRepository.findBySubmitterId(login.getId());
+        List<Request> requests = requestRepository.findByCustomerId(login.getId());
         List<Cottage> cottages = requests.stream()
                 .map(Request::getCottage)
                 .collect(Collectors.toList());
@@ -82,9 +82,9 @@ public class CottageController {
     }
 
     @GetMapping("/unrequest")
-    public String unsendRequest(@SessionAttribute(value = "loggedInUser", required = false) Login login,
+    public String unsendRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
                                 @RequestParam("cottageId") long cottageId, Model model) {
-        Request request = requestRepository.findBySubmitterIdAndCottageId(login.getId(), cottageId);
+        Request request = requestRepository.findByCustomerIdAndCottageId(login.getId(), cottageId);
         requestRepository.delete(request);
         return "redirect:/reservations";
     }

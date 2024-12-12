@@ -1,7 +1,6 @@
 package MojaChata.pl.app.controller;
 
 import MojaChata.pl.app.model.*;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,7 @@ public class SearchController {
     private CottageService cottageService;
 
     @GetMapping("/search")
-    public String searchCottage(@SessionAttribute(value = "loggedInUser", required = false) Login login,
+    public String searchCottage(@SessionAttribute(value = "loggedInUser", required = false) User login,
                                 @ModelAttribute SearchDTO search, Model model) {
         if (login != null) {
             search.setOwnerId(login.getId());
@@ -36,12 +35,12 @@ public class SearchController {
     }
 
     @GetMapping("/request")
-    public String sendRequest(@SessionAttribute(value = "loggedInUser", required = false) Login login,
+    public String sendRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
                               @RequestParam("cottageId") long cottageId, Model model) {
         Cottage cottage = cottageRepository.findById(cottageId)
                 .orElseThrow(() -> new RuntimeException("Invalid cottage Id: " + cottageId));
-        if (!requestRepository.existsBySubmitterIdAndCottageId(login.getId(), cottage.getId())) {
-            requestRepository.save(new Request(cottage, login.getId(), cottage.getOwnerId()));
+        if (!requestRepository.existsByCustomerIdAndCottageId(login.getId(), cottage.getId())) {
+            requestRepository.save(new Request(cottage, login.getId()));
         }
         return "redirect:/search";
     }
