@@ -3,11 +3,12 @@ package MojaChata.pl.app.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "requests")
 public class Request {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "request_id")
     private long id;
 
     @ManyToOne
@@ -15,15 +16,18 @@ public class Request {
     @NotNull(message = "Cottage is mandatory")
     private Cottage cottage;
 
-    private long submitterId;
+    private long customerId;
 
-    private long recipientId;
+    // private date checkin_date;
+    // private date checkout_date;
+    // private float total_price;
+
 
     public Request() {}
-    public Request(Cottage cottage, long submitterId, long recipientId) {
+
+    public Request(Cottage cottage, long customerId) {
         this.cottage = cottage;
-        this.submitterId = submitterId;
-        this.recipientId = recipientId;
+        this.customerId = customerId;
     }
 
     public long getId() {
@@ -34,20 +38,12 @@ public class Request {
         this.id = id;
     }
 
-    public long getSubmitterId() {
-        return submitterId;
+    public long getCustomerId() {
+        return customerId;
     }
 
-    public void setSubmitterId(long submitterId) {
-        this.submitterId = submitterId;
-    }
-
-    public long getRecipientId() {
-        return recipientId;
-    }
-
-    public void setRecipientId(long recipientId) {
-        this.recipientId = recipientId;
+    public void setCustomerId(long submitterId) {
+        this.customerId = submitterId;
     }
 
     public Cottage getCottage() {

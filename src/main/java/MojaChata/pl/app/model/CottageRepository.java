@@ -9,14 +9,15 @@ import java.util.List;
 
 @Repository
 public interface CottageRepository extends CrudRepository<Cottage, Long> {
-    @Query("SELECT a FROM Cottage a WHERE (:address IS NULL OR a.address LIKE %:address%)" +
-            "AND (:minPrice IS NULL OR a.price >= :minPrice)" +
-            "AND (:maxPrice IS NULL OR a.price <= :maxPrice)" +
-            "AND (:minSize IS NULL OR a.size >= :minSize)" +
-            "AND (:maxSize IS NULL OR a.size <= :maxSize)"+
-            "AND (:ownerId IS NULL OR :ownerId != a.ownerId)")
+    @Query("SELECT c FROM cottages c WHERE" +
+            "(:minPrice IS NULL OR c.minPricePerDay >= :minPrice)" +
+            "AND (:maxPrice IS NULL OR c.minPricePerDay <= :maxPrice)" +
+            "AND (:minSize IS NULL OR c.size_m2 >= :minSize)" +
+            "AND (:maxSize IS NULL OR c.size_m2 <= :maxSize)" +
+            "AND (:ownerId IS NULL OR c.id = :ownerId)"
+            )
     List<Cottage> searchCottage(
-            @Param("address") String address,
+        //     @Param("address") String address,
             @Param("minPrice") Integer minPrice,
             @Param("maxPrice") Integer maxPrice,
             @Param("minSize") Integer minSize,

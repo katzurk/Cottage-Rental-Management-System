@@ -22,7 +22,7 @@ tr:hover {background-color: #27518f;}
 
 .logo {
     height: 50px;
-    background-color: #0e2849;
+    background-color: #18161c;
     margin: -8px;
     padding: 20px;
 }
@@ -34,7 +34,7 @@ tr:hover {background-color: #27518f;}
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
@@ -46,7 +46,7 @@ tr:hover {background-color: #27518f;}
     background-color: #37638d;
 }
 .go-to-subpage2 {
-    background-color: #ff0000;
+    background-color: #721c2f;
     animation: blink 1.5s infinite;
 }
 
@@ -59,11 +59,11 @@ tr:hover {background-color: #27518f;}
     background-color: #308616;
 }
 .loggedin {
-    background-color: #1088bc;
+    background-color: #37638d;
 }
 
 .logout{
-    background-color: #ff3d3d;
+    background-color: #721c2f;
 }
 .login-container {
     background-color: white;

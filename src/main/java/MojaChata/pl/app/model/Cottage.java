@@ -1,27 +1,28 @@
 package MojaChata.pl.app.model;
 
+import java.math.BigDecimal;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
-@Entity
+@Entity(name = "cottages")
 public class Cottage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cottage_id")
     private long id;
 
     @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @NotBlank(message = "Address is mandatory")
-    private String address;
+    // @NotBlank(message = "Address is mandatory")
+    // private String address;
 
     @Positive(message = "Size is mandatory")
-    private int size;
+    private int size_m2;
 
     @Positive(message = "RoomsNumber is mandatory")
     private int roomsNumber;
@@ -33,22 +34,23 @@ public class Cottage {
     private int maxPeopleNum;
 
     @Positive(message = "Price is mandatory")
-    private int price;
+    @Column(name = "min_price_per_day")
+    private BigDecimal minPricePerDay;
 
     private long ownerId;
 
     // standard constructors / setters / getters / toString
     Cottage() {}
 
-    Cottage(String name, String address, int size, int roomsNumber, int bathroomsNumber, int maxPeopleNum, int price, int ownerId ) {
+    Cottage(String name, String address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, long ownerId ) {
 
       this.name = name;
-      this.address = address;
-      this.size = size;
+    //   this.address = address;
+      this.size_m2 = size_m2;
       this.roomsNumber = roomsNumber;
       this.bathroomsNumber = bathroomsNumber;
       this.maxPeopleNum = maxPeopleNum;
-      this.price = price;
+      this.minPricePerDay = price;
       this.ownerId = ownerId;
     }
 
@@ -60,12 +62,12 @@ public class Cottage {
         return this.name;
     }
 
-    public String getAddress() {
-        return this.address;
-    }
+    // public String getAddress() {
+    //     return this.address;
+    // }
 
-    public int getSize() {
-        return this.size;
+    public int getSize_m2() {
+        return this.size_m2;
     }
 
     public int getRoomsNumber() {
@@ -80,8 +82,8 @@ public class Cottage {
         return this.maxPeopleNum;
     }
 
-    public int getPrice() {
-        return this.price;
+    public BigDecimal getMinPricePerDay() {
+        return this.minPricePerDay;
     }
 
     public long getOwnerId(){
@@ -96,12 +98,12 @@ public class Cottage {
         this.name = name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    // public void setAddress(String address) {
+    //     this.address = address;
+    // }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setSize_m2(int size) {
+        this.size_m2 = size;
     }
 
     public void setRoomsNumber(int roomsNumber) {
@@ -116,8 +118,8 @@ public class Cottage {
         this.maxPeopleNum = maxPeopleNum;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setMinPricePerDay(BigDecimal price) {
+        this.minPricePerDay = price;
     }
 
     public void setOwnerId(long id) {
@@ -126,8 +128,8 @@ public class Cottage {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + this.id + ", name='" + this.name + '\'' + ", address='" + this.address + '\'' + ", size=" + this.size + ", roomsNumber=" + this.roomsNumber
-                + ", bathroomsNumber=" + this.bathroomsNumber + ", maxPeopleNum=" + this.maxPeopleNum + ", price=" + this.price + '}';
+        return "User{" + "id=" + this.id + ", name='" + this.name + '\'' + ", size=" + this.size_m2 + ", roomsNumber=" + this.roomsNumber
+                + ", bathroomsNumber=" + this.bathroomsNumber + ", maxPeopleNum=" + this.maxPeopleNum + ", price=" + this.minPricePerDay + '}';
     }
 
 }
