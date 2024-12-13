@@ -25,6 +25,7 @@ public class SearchController {
                                 @ModelAttribute SearchDTO search, Model model) {
         if (login != null) {
             search.setOwnerId(login.getId());
+            System.out.println(login.getId());
         }
 
         List<Cottage> cottages = cottageService.searchCottage(search);
@@ -37,6 +38,9 @@ public class SearchController {
     @GetMapping("/request")
     public String sendRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
                               @RequestParam("cottageId") long cottageId, Model model) {
+        if (login == null) {
+            return "redirect:/login";
+        }
         Cottage cottage = cottageRepository.findById(cottageId)
                 .orElseThrow(() -> new RuntimeException("Invalid cottage Id: " + cottageId));
         if (!requestRepository.existsByCustomerIdAndCottageId(login.getId(), cottage.getId())) {

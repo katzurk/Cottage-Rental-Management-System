@@ -17,7 +17,7 @@
       <thead>
       <tr>
         <th style="width:20%;">Name</th>
-        <th style="width:20%;">Address</th>
+<!--        <th style="width:20%;">Address</th>-->
         <th >Size</th>
         <th >Number of rooms</th>
         <th >Number of bathrooms</th>
@@ -29,12 +29,12 @@
       <tbody>
       <tr th:each="cottage : ${cottages}">
         <td th:text="${cottage.name}" ></td>
-        <td th:text="${cottage.address}" ></td>
-        <td th:text="${cottage.size}" ></td>
+<!--        <td th:text="${cottage.address}" ></td>-->
+        <td th:text="${cottage.size_m2}" ></td>
         <td th:text="${cottage.roomsNumber}" ></td>
         <td th:text="${cottage.bathroomsNumber}" ></td>
         <td th:text="${cottage.maxPeopleNum}" ></td>
-        <td th:text="${cottage.price}" ></td>
+        <td th:text="${cottage.minPricePerDay}" ></td>
         <td><a th:href="@{/unrequest(cottageId=${cottage.id})}" class="button edit">Unsent</a></td>
       </tr>
       </tbody>
