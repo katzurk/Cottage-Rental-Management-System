@@ -3,11 +3,13 @@ package MojaChata.pl.app.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.sql.Date;
+
 @Entity(name = "requests")
 public class Request {
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "request_id")
     private long id;
 
@@ -18,16 +20,24 @@ public class Request {
 
     private long customerId;
 
-    // private date checkin_date;
-    // private date checkout_date;
-    // private float total_price;
-
+    @Temporal(TemporalType.DATE)
+    private Date checkin_date;
+    @Temporal(TemporalType.DATE)
+    private java.sql.Date checkout_date;
+    private float total_price;
 
     public Request() {}
 
     public Request(Cottage cottage, long customerId) {
         this.cottage = cottage;
         this.customerId = customerId;
+        this.checkin_date = new java.sql.Date(System.currentTimeMillis());
+        this.checkout_date = new java.sql.Date(System.currentTimeMillis());
+        this.total_price = 0;
+    }
+
+    public Request(Cottage cottage, long customerId, Date checkin_date, java.sql.Date checkout_date, float total_price) {
+        // to do
     }
 
     public long getId() {
@@ -42,8 +52,8 @@ public class Request {
         return customerId;
     }
 
-    public void setCustomerId(long submitterId) {
-        this.customerId = submitterId;
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
     public Cottage getCottage() {
