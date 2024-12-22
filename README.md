@@ -43,7 +43,7 @@ Gotowe!
     • Katarzyna Kanicka (wyżej K)
     • Tomasz Foryś (wyżej T)
 
-    (Paweł Marton po uzgodnieniu z prowadzącym pap został odłączony od proejktu)
+    (Paweł Marton po uzgodnieniu z prowadzącym pap został odłączony od projektu)
 
 
 ### -----------BD1
