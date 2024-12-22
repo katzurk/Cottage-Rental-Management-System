@@ -21,10 +21,24 @@ th, td {
 tr:hover {background-color: #27518f;}
 
 .logo {
-    height: 50px;
+    height: 109px;
     background-color: #18161c;
     margin: -8px;
-    padding: 20px;
+    padding: 0px;
+}
+
+.for-rent-img {
+    width: 350px;
+    padding: 0px;
+    margin: 20px;
+    box-shadow: 13px 13px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.my-cottages-img {
+    width: 700px;
+    padding: 0px;
+    margin: 5px;
+    box-shadow: 13px 13px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .button {
@@ -39,14 +53,15 @@ tr:hover {background-color: #27518f;}
     cursor: pointer;
     border-radius: 4px;
 }
-.go-to-index {
-    background-color: #a8470e;
+
+.logo img {
+    height: 105px;
+    box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.5);
+    margin: 0;
 }
-.go-to-subpage {
-    background-color: #37638d;
-}
-.go-to-subpage2 {
-    background-color: #721c2f;
+
+.reservation-notification {
+    box-shadow: 1px 1px 5px 10px rgba(155, 24, 24, 0.5);
     animation: blink 1.5s infinite;
 }
 
@@ -57,13 +72,16 @@ tr:hover {background-color: #27518f;}
 }
 .login {
     background-color: #308616;
+    margin-left: 30px;
 }
 .loggedin {
     background-color: #37638d;
+    margin-left: 30px;
 }
 
 .logout{
     background-color: #721c2f;
+    margin-left: 30px;
 }
 .login-container {
     background-color: white;
@@ -132,7 +150,7 @@ input[type="submit"]{
     text-align: center;
 }
 .error-message {
-    color: red;
+    color: rgb(172, 15, 15);
 }
 .input-label {
     color: white;
