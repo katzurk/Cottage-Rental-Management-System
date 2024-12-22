@@ -1,14 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Search</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <title>Cottage Search</title>
+    <th:block th:include="index :: headerfiles"></th:block>
 </head>
 <body>
-<div class="logo">
-    <a href="/index" class="button go-to-index">MojaChata.pl</a>
-</div>
+<div th:replace="index :: logo-bar"></div>
 <div>
     <br>
     <form action="/search" method="get" th:object="${searchDTO}" class="form-container">

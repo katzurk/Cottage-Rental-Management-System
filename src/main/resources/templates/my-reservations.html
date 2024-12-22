@@ -1,45 +1,44 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>My Cottages</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <title>My Reservations</title>
+  <th:block th:include="index :: headerfiles"></th:block>
 </head>
+
 <body>
-<div class="logo">
-  <a href="/index" class="button go-to-index">MojaChata.pl</a>
-</div>
-<div th:switch="${cottages}">
-  <h2 th:case="null" >No reservations</h2>
-  <div th:case="*">
-    <h2 >My Reservations</h2>
-    <table>
-      <thead>
-      <tr>
-        <th style="width:20%;">Name</th>
-<!--        <th style="width:20%;">Address</th>-->
-        <th >Size</th>
-        <th >Number of rooms</th>
-        <th >Number of bathrooms</th>
-        <th >Maximum number of people</th>
-        <th style="width:10%;">Price</th>
-        <th >Request</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="cottage : ${cottages}">
-        <td th:text="${cottage.name}" ></td>
-<!--        <td th:text="${cottage.address}" ></td>-->
-        <td th:text="${cottage.size_m2}" ></td>
-        <td th:text="${cottage.roomsNumber}" ></td>
-        <td th:text="${cottage.bathroomsNumber}" ></td>
-        <td th:text="${cottage.maxPeopleNum}" ></td>
-        <td th:text="${cottage.minPricePerDay}" ></td>
-        <td><a th:href="@{/unrequest(cottageId=${cottage.id})}" class="button edit">Unsent</a></td>
-      </tr>
-      </tbody>
-    </table>
+  <div th:replace="index :: logo-bar"></div>
+
+  <div th:switch="${cottages}">
+    <h2 th:case="null" >No reservations</h2>
+    <div th:case="*">
+      <h2 >My Reservations</h2>
+      <table>
+        <thead>
+        <tr>
+          <th style="width:20%;">Name</th>
+  <!--        <th style="width:20%;">Address</th>-->
+          <th >Size</th>
+          <th >Number of rooms</th>
+          <th >Number of bathrooms</th>
+          <th >Maximum number of people</th>
+          <th style="width:10%;">Price</th>
+          <th >Request</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cottage : ${cottages}">
+          <td th:text="${cottage.name}" ></td>
+  <!--        <td th:text="${cottage.address}" ></td>-->
+          <td th:text="${cottage.size_m2}" ></td>
+          <td th:text="${cottage.roomsNumber}" ></td>
+          <td th:text="${cottage.bathroomsNumber}" ></td>
+          <td th:text="${cottage.maxPeopleNum}" ></td>
+          <td th:text="${cottage.minPricePerDay}" ></td>
+          <td><a th:href="@{/unrequest(cottageId=${cottage.id})}" class="button edit">Unsent</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 </body>
 </html>
