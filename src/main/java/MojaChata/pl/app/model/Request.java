@@ -24,6 +24,7 @@ public class Request {
     private Date checkin_date;
     @Temporal(TemporalType.DATE)
     private java.sql.Date checkout_date;
+    // TODO: total price = (checkout_date - checkin_date) * cottage.minPricePerDay
     private float total_price;
 
     public Request() {}

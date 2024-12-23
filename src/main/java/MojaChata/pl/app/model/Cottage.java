@@ -2,10 +2,16 @@ package MojaChata.pl.app.model;
 
 import java.math.BigDecimal;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Entity(name = "cottages")
@@ -18,8 +24,11 @@ public class Cottage {
     @NotBlank(message = "Name is mandatory")
     private String name;
 
-    // @NotBlank(message = "Address is mandatory")
-    // private String address;
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    @NotNull(message = "Address is mandatory")
+    @Cascade(CascadeType.ALL)
+    private Address address;
 
     @Positive(message = "Size is mandatory")
     private int size_m2;
@@ -42,10 +51,10 @@ public class Cottage {
     // standard constructors / setters / getters / toString
     Cottage() {}
 
-    Cottage(String name, String address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, long ownerId ) {
+    Cottage(String name, Address address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, long ownerId ) {
 
       this.name = name;
-    //   this.address = address;
+      this.address = address;
       this.size_m2 = size_m2;
       this.roomsNumber = roomsNumber;
       this.bathroomsNumber = bathroomsNumber;
@@ -62,9 +71,9 @@ public class Cottage {
         return this.name;
     }
 
-    // public String getAddress() {
-    //     return this.address;
-    // }
+    public Address getAddress() {
+        return this.address;
+    }
 
     public int getSize_m2() {
         return this.size_m2;
@@ -98,9 +107,9 @@ public class Cottage {
         this.name = name;
     }
 
-    // public void setAddress(String address) {
-    //     this.address = address;
-    // }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public void setSize_m2(int size) {
         this.size_m2 = size;
