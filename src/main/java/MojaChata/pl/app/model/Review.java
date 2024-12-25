@@ -24,7 +24,6 @@ public class Review {
 
     private String text;
 
-    @NotBlank(message = "date posted is mandatory")
     @Column(name = "date_posted")
     private Date datePosted;
 
@@ -34,7 +33,7 @@ public class Review {
     private Cottage cottage;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "author_id")
     @NotNull(message = "Author is mandatory")
     private User author;
 
@@ -71,6 +70,10 @@ public class Review {
         return this.grade;
     }
 
+    public Date getDatePosted() {
+        return datePosted;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -90,4 +93,15 @@ public class Review {
     public void setGrade(Integer grade) {
         this.grade = grade;
     }
+
+    public void setDatePosted(Date datePosted) {
+        this.datePosted = datePosted;
+    }
+
+    @Override
+    public String toString() {
+        return "Review [id=" + id + ", text=" + text + ", datePosted=" + datePosted + ", cottage=" + cottage
+                + ", author=" + author + ", grade=" + grade + "]";
+    }
+
 }

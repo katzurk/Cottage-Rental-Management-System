@@ -6,7 +6,7 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends CrudRepository<Review, Long> {
-    List<Request> findByCottageId(Long cottageId);
+    List<Review> findByCottageId(Long cottageId);
     boolean existsByCottageId(Long cottageId);
 
 }

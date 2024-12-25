@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>New Review</title>
+        <th:block th:insert="~{index :: headerfiles}"></th:block>
+    </head>
+
+    <body>
+        <h2>Add a review</h2>
+        <hr width="90%" size="3" color="#18161c" noshade>
+        <form action="#" class="preserve-space" th:action="@{'/cottages/' + ${cottageId} + '/reviews/addReview'}" th:object="${review}" method="post">
+            <label for="text" class="input-label">Text</label>
+            <input type="text" th:field="*{text}" id="text" placeholder="text">
+            <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}" class="error-message"></span>
+
+            <label for="grade" class="input-label">Grade</label>
+            <select name="grade" th:field="*{grade}" id="grade" placeholder="grade">
+                <option value="1"> 1 - Very Poor</option>
+                <option value="2"> 2 - Poor</option>
+                <option value="3"> 3 - Moderate</option>
+                <option value="4"> 4 - Good</option>
+                <option value="5"> 5 - Excelent</option>
+            </select>
+            <span th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}" class="error-message"></span>
+
+            <p style="text-align: center;">
+                <input type="submit" value="Add Review" class="button">
+                <a th:href="@{'/cottages/' + ${cottageId} + '/reviews'}" class="button cancel">Cancel</a>
+            </p>
+        </form>
+    </body>
+</html>

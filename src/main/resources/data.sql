@@ -78,3 +78,17 @@ VALUES
     (5, 'Elfish Home', 5, 80, 6, 10, 8, 49.99, 2),
     (6, 'Hobbit Hole', 6, 56, 2, 4, 2, 17.89, 2),
     (7, 'Baggins Hill', 7, 136, 4, 12, 8, 129.99, 2);
+
+------ REVIEWS
+SELECT NEXT VALUE FOR REVIEWS_SEQ;
+SELECT NEXT VALUE FOR REVIEWS_SEQ;
+INSERT INTO REVIEWS
+    (REVIEW_ID, COTTAGE_ID, AUTHOR_ID, TEXT, DATE_POSTED, GRADE)
+VALUES
+    (1, 2, 1, 'great view, comfy beds. I recommend it to everyone.', '2024-12-10', 5),
+    (2, 2, 1, 'fantastic place', '2024-08-22', 5),
+    (3, 2, 1, 'a bit high price, but definitely worth it', '2023-07-15', 3),
+    (4, 2, 1, 'frogs were very loud. They were making a lot of noise EVERY NIGHT!! Neither me nor my kids could not sleep at all! Awful vacation. I did not rest even a little bit becouse of this frogs.', '2020-04-01', 1),
+    (5, 1, 1, 'nice and cozy', '2024-08-11', 5),
+    (6, 1, 1, 'amazing cottage, a bit small but really great', '2024-09-16', 4);
+

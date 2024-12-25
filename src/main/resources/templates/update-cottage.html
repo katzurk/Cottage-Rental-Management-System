@@ -31,23 +31,23 @@
             <span th:if="${#fields.hasErrors('address.city.name')}" th:errors="*{address.city.name}" class="error-message"></span>
 
             <label for="size" class="input-label">Size in m2</label>
-            <input type="number" th:field="*{size_m2}" id="size_m2" placeholder="Size_m2">
+            <input type="number" th:field="*{size_m2}" id="size_m2" placeholder="Size_m2" min="0">
             <span th:if="${#fields.hasErrors('size_m2')}" th:errors="*{size_m2}" class="error-message"></span>
 
             <label for="roomsNumber" class="input-label">Number of rooms</label>
-            <input type="number" th:field="*{roomsNumber}" id="roomsNumber" placeholder="RoomsNumber">
+            <input type="number" th:field="*{roomsNumber}" id="roomsNumber" placeholder="RoomsNumber" min="0">
             <span th:if="${#fields.hasErrors('roomsNumber')}" th:errors="*{roomsNumber}" class="error-message"></span>
 
             <label for="bathroomsNumber" class="input-label">Number of bathrooms</label>
-            <input type="number" th:field="*{bathroomsNumber}" id="bathroomsNumber" placeholder="BathroomsNumber">
+            <input type="number" th:field="*{bathroomsNumber}" id="bathroomsNumber" placeholder="BathroomsNumber" min="0">
             <span th:if="${#fields.hasErrors('bathroomsNumber')}" th:errors="*{bathroomsNumber}" class="error-message"></span>
 
             <label for="maxPeopleNum" class="input-label">Maximum number of people</label>
-            <input type="number" th:field="*{maxPeopleNum}" id="maxPeopleNum" placeholder="MaxPeopleNum">
+            <input type="number" th:field="*{maxPeopleNum}" id="maxPeopleNum" placeholder="MaxPeopleNum" min="0">
             <span th:if="${#fields.hasErrors('maxPeopleNum')}" th:errors="*{maxPeopleNum}" class="error-message"></span>
 
             <label for="minPricePerDay" class="input-label">Price</label>
-            <input type="number" th:field="*{minPricePerDay}" id="minPricePerDay" placeholder="minPricePerDay">
+            <input type="number" th:field="*{minPricePerDay}" id="minPricePerDay" placeholder="minPricePerDay" min="0">
             <span th:if="${#fields.hasErrors('minPricePerDay')}" th:errors="*{minPricePerDay}" class="error-message"></span>
 
             <p style="text-align: center;">
