@@ -2,9 +2,12 @@ package MojaChata.pl.app.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,6 +15,8 @@ import jakarta.validation.constraints.NotNull;
 public class Address {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addressSeq")
+    @SequenceGenerator(name = "addressSeq", sequenceName = "ADDRESSES_SEQ")
     @Column(name = "address_id")
     private long id;
 
@@ -55,7 +60,14 @@ public class Address {
         this.postalCode = postalCode;
     }
 
+    @Override
+    public String toString() {
+        return "Address [id=" + id + ", street=" + street + ", postalCode=" + postalCode + "]";
+    }
+
     public void setCity(City city) {
         this.city = city;
     }
+
+
 }

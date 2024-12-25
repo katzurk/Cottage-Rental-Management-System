@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Update Cottage</title>
-        <th:block th:include="index :: headerfiles"></th:block>
+        <th:block th:insert="~{index :: headerfiles}"></th:block>
     </head>
 
     <body>
@@ -25,12 +25,10 @@
             <span th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}" class="error-message"></span>
 
             <label for="city" class="input-label">City</label>
-            <input type="text" th:field="*{address.city.name}" id="city" placeholder="city">
+            <select name="city" th:field="*{address.city.id}" id="city" placeholder="city">
+                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name} + ', population: ' + ${city.population}"/>
+            </select>
             <span th:if="${#fields.hasErrors('address.city.name')}" th:errors="*{address.city.name}" class="error-message"></span>
-
-            <label for="country" class="input-label">Country</label>
-            <input type="text" th:field="*{cottage.address.city.country.name}" id="country" placeholder="country">
-            <span th:if="${#fields.hasErrors('address.city.country.name')}" th:errors="*{address.city.country.name}" class="error-message"></span>
 
             <label for="size" class="input-label">Size in m2</label>
             <input type="number" th:field="*{size_m2}" id="size_m2" placeholder="Size_m2">

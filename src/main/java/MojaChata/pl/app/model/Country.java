@@ -2,14 +2,19 @@ package MojaChata.pl.app.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity (name = "countries")
 public class Country {
 
     @Id
-    @Column(name = "city_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "countrySeq")
+    @SequenceGenerator(name = "countrySeq", sequenceName = "COUNTRIES_SEQ")
+    @Column(name = "country_id")
     private long id;
 
     @NotBlank(message = "name is mandatory")

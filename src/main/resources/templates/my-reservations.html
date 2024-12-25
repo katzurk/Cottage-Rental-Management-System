@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>My Reservations</title>
-  <th:block th:include="index :: headerfiles"></th:block>
+  <th:block th:insert="~{index :: headerfiles}"></th:block>
 </head>
 
 <body>
-  <div th:replace="index :: logo-bar"></div>
+  <div th:replace="~{index :: logo-bar}"></div>
 
   <div th:switch="${cottages}">
     <h2 th:case="null" >No reservations</h2>

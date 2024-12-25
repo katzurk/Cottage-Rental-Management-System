@@ -2,13 +2,18 @@ package MojaChata.pl.app.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity (name= "facilities")
 public class Facility {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facilitySeq")
+    @SequenceGenerator(name = "facilitySeq", sequenceName = "FACILITIES_SEQ")
     @Column(name = "facility_id")
     private long id;
 

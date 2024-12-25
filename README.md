@@ -16,7 +16,7 @@ Gotowe!
 
 ## Wymagania
     • wykorzystanie bazy danych typu relacyjnego (W - 100%)
-    • kod aplikacji napisany w języku java z wykorzystaniem framework'u spring (P)
+    • kod aplikacji napisany w języku java z wykorzystaniem framework'u spring
     • interfejs umożliwia wykonywanie operacji:
         1. dodanie mieszkania na wynajem (W - 100%)
         2. usunięcie mieszkania na wynajem (W - 100%)

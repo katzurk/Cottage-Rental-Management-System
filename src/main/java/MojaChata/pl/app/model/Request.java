@@ -9,7 +9,8 @@ import java.sql.Date;
 public class Request {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requestSeq")
+    @SequenceGenerator(name = "requestSeq", sequenceName = "REQUESTS_SEQ")
     @Column(name = "request_id")
     private long id;
 

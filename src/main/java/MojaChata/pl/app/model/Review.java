@@ -4,9 +4,12 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,6 +17,8 @@ import jakarta.validation.constraints.NotNull;
 public class Review {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reviewSeq")
+    @SequenceGenerator(name = "reviewSeq", sequenceName = "REVIEWS_SEQ")
     @Column(name = "review_id")
     private long id;
 
@@ -35,6 +40,16 @@ public class Review {
 
     @NotNull(message = "grade is mandatory")
     private Integer grade;
+
+    public Review(){}
+
+    public Review(Cottage cottage, User author) {
+        this.cottage = cottage;
+        this.datePosted = new java.sql.Date(System.currentTimeMillis());
+        this.author = author;
+        this.grade = 0;
+    }
+
 
     public Long getId() {
         return this.id;

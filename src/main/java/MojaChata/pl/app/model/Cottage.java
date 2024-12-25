@@ -1,15 +1,22 @@
 package MojaChata.pl.app.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -19,6 +26,8 @@ public class Cottage {
 
     @Id
     @Column(name = "cottage_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cottageSeq")
+    @SequenceGenerator(name = "cottageSeq", sequenceName = "COTTAGES_SEQ")
     private long id;
 
     @NotBlank(message = "Name is mandatory")
@@ -46,12 +55,33 @@ public class Cottage {
     @Column(name = "min_price_per_day")
     private BigDecimal minPricePerDay;
 
-    private long ownerId;
+    @ManyToOne()
+    @JoinColumn(name = "owner_id")
+    // @NotNull(message = "Owner is mandatory")
+    private User owner;
+
+    @ManyToMany()
+    @JoinTable(name = "cottages_equipments",
+        joinColumns = { @JoinColumn(name = "cottage_id") },
+        inverseJoinColumns = { @JoinColumn(name = "equipment_id") })
+    private List<Equipment> equipments;
+
+    @ManyToMany()
+    @JoinTable(name = "cottages_facilities",
+        joinColumns = { @JoinColumn(name = "cottage_id") },
+        inverseJoinColumns = { @JoinColumn(name = "facility_id") })
+    private List<Facility> facilities;
+
+    @ManyToMany()
+    @JoinTable(name = "cottages_restrictions",
+        joinColumns = { @JoinColumn(name = "cottage_id") },
+        inverseJoinColumns = { @JoinColumn(name = "restriction_id") })
+    private List<Restriction> restrictions;
 
     // standard constructors / setters / getters / toString
     Cottage() {}
 
-    Cottage(String name, Address address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, long ownerId ) {
+    Cottage(String name, Address address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, User owner) {
 
       this.name = name;
       this.address = address;
@@ -60,7 +90,7 @@ public class Cottage {
       this.bathroomsNumber = bathroomsNumber;
       this.maxPeopleNum = maxPeopleNum;
       this.minPricePerDay = price;
-      this.ownerId = ownerId;
+      this.owner = owner;
     }
 
     public Long getId() {
@@ -95,8 +125,20 @@ public class Cottage {
         return this.minPricePerDay;
     }
 
-    public long getOwnerId(){
-        return this.ownerId;
+    public User getOwner(){
+        return this.owner;
+    }
+
+    public List<Equipment> getEquipments() {
+        return equipments;
+    }
+
+    public List<Facility> getFacilities() {
+        return facilities;
+    }
+
+    public List<Restriction> getRestrictions() {
+        return restrictions;
     }
 
     public void setId(Long id) {
@@ -131,14 +173,15 @@ public class Cottage {
         this.minPricePerDay = price;
     }
 
-    public void setOwnerId(long id) {
-        this.ownerId = id;
+    public void setOwner(User newOwner) {
+        this.owner = newOwner;
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + this.id + ", name='" + this.name + '\'' + ", size=" + this.size_m2 + ", roomsNumber=" + this.roomsNumber
-                + ", bathroomsNumber=" + this.bathroomsNumber + ", maxPeopleNum=" + this.maxPeopleNum + ", price=" + this.minPricePerDay + '}';
+        return "Cottage{" + "id=" + this.id + ", name='" + this.name + '\'' + ", size=" + this.size_m2 + ", roomsNumber=" + this.roomsNumber
+                + ", bathroomsNumber=" + this.bathroomsNumber + ", maxPeopleNum=" + this.maxPeopleNum + ", price=" + this.minPricePerDay
+                + ", owner: " + this.owner + ", address: " + this.address + "}";
     }
 
 }

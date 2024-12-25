@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cottage Reviews</title>
+    <th:block th:insert="~{index :: headerfiles}"></th:block>
+</head>
+<body>
+<div th:replace="~{index :: logo-bar}"></div>
+<h2>Reviews</h2>
+<div>
+    <p style="text-align: center;">
+        <input type="submit" value="Add review" class="button">
+        <a href="/search-cottage" class="button cancel">Cancel</a>
+    </p>
+    <div th:switch="${cottage.reviews}">
+        <h2 th:case="null" >No results</h2>
+        <div th:case="*">
+            <table>
+                <thead>
+                <tr>
+                    <th style="width:20%;">Text</th>
+                    <th>Date posted</th>
+                    <th>Grade</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="review : ${Reviews}">
+                        <td th:text="${review.text}"></td>
+                        <td th:text="${review.datePosted}"></td>
+                        <td th:text="${review.grade}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:if="${#lists.isEmpty(cottage.reviews)}">
+                <h2>No results</h2>
+            </div>
+</div>
+</body>
+</html>

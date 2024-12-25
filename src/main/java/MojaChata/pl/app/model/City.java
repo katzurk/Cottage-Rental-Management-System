@@ -2,9 +2,12 @@ package MojaChata.pl.app.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,6 +15,8 @@ import jakarta.validation.constraints.NotNull;
 public class City {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "citySeq")
+    @SequenceGenerator(name = "citySeq", sequenceName = "CITIES_SEQ")
     @Column(name = "city_id")
     private long id;
 
@@ -19,7 +24,7 @@ public class City {
     private String name;
 
     @NotNull(message = "population is mandatory")
-    private Integer population;
+    private Double population;
 
     @NotNull(message = "size is mandatory")
     private Integer size;
@@ -37,7 +42,7 @@ public class City {
         return this.name;
     }
 
-    public Integer getPopoulation() {
+    public Double getPopulation() {
         return this.population;
     }
 
@@ -57,7 +62,7 @@ public class City {
         this.name = name;
     }
 
-    public void setPopulation(Integer population) {
+    public void setPopulation(Double population) {
         this.population = population;
     }
 
@@ -65,7 +70,7 @@ public class City {
         this.size = size;
     }
 
-    public void setCountryId(Country country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 }

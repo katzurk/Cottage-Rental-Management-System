@@ -2,16 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>My Cottages</title>
-        <th:block th:include="index :: headerfiles"></th:block>
+        <th:block th:insert="~{index :: headerfiles}"></th:block>
     </head>
 
     <body>
-        <div th:replace="index :: logo-bar"></div>
+        <div th:replace="~{index :: logo-bar}"></div>
 
         <div th:if="${session.loggedInUser == null}">
+            <br><br><br>
             <h2 >Log in to see your cottages!</h2>
         </div>
         <div th:unless = "${session.loggedInUser == null}" th:switch="${cottages}">
+            <br><br><br>
             <h2 th:case="null" >No cottages yet!</h2>
             <div th:case="*">
                 <h2 >My Cottages</h2>
@@ -19,8 +21,8 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width:20%;">Name</th>
-                            <th style="width:20%;">Address</th>
+                            <th style="width:15%;">Name</th>
+                            <th style="width:15%;">Address</th>
                             <th >City</th>
                             <th >Country</th>
                             <th >Size</th>
@@ -35,9 +37,11 @@
                     <tbody>
                         <tr th:each="cottage : ${cottages}">
                             <td th:text="${cottage.name}" ></td>
+
                             <td th:text="${cottage.address.street} + ' ' + ${cottage.address.postalCode}" ></td>
                             <td th:text="${cottage.address.city.name}"></td>
                             <td th:text="${cottage.address.city.country.name}"></td>
+
                             <td th:text="${cottage.size_m2}" ></td>
                             <td th:text="${cottage.roomsNumber}" ></td>
                             <td th:text="${cottage.bathroomsNumber}" ></td>

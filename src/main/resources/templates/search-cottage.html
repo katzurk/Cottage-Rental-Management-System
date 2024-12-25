@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Cottage Search</title>
-    <th:block th:include="index :: headerfiles"></th:block>
+    <th:block th:insert="~{index :: headerfiles}"></th:block>
 </head>
 <body>
-<div th:replace="index :: logo-bar"></div>
+<div th:replace="~{index :: logo-bar}"></div>
 <div>
     <br>
     <form action="/search" method="get" th:object="${searchDTO}" class="form-container">
@@ -46,8 +46,8 @@
         <table>
             <thead>
             <tr>
-                <th style="width:20%;">Name</th>
-                <th style="width:20%;">Address</th>
+                <th style="width:15%;">Name</th>
+                <th style="width:15%;">Address</th>
                 <th>City</th>
                 <th>Country</th>
                 <th>Size in m2</th>
