@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Cottage Search</title>
-    <th:block th:include="index :: headerfiles"></th:block>
+    <th:block th:insert="~{index :: headerfiles}"></th:block>
 </head>
 <body>
-<div th:replace="index :: logo-bar"></div>
+<div th:replace="~{index :: logo-bar}"></div>
 <div>
     <br>
     <form action="/search" method="get" th:object="${searchDTO}" class="form-container">
@@ -46,26 +46,32 @@
         <table>
             <thead>
             <tr>
-                <th style="width:20%;">Name</th>
-<!--                <th style="width:20%;">Address</th>-->
+                <th style="width:15%;">Name</th>
+                <th style="width:15%;">Address</th>
+                <th>City</th>
+                <th>Country</th>
                 <th>Size in m2</th>
                 <th>Number of Rooms</th>
                 <th>Number of Bathrooms</th>
                 <th>Maximum Number of People</th>
                 <th style="width:10%;">Price per day</th>
                 <th>Rent</th>
+                <th>Reviews</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="cottage : ${cottages}">
                 <td th:text="${cottage.name}"></td>
-                <!--<td th:text="${cottage.address}"></td> </div>  -->
+                <td th:text="${cottage.address.street} + ' ' + ${cottage.address.postalCode}"></td>
+                <td th:text="${cottage.address.city.name}"></td>
+                <td th:text="${cottage.address.city.country.name}"></td>
                 <td th:text="${cottage.size_m2}"></td>
                 <td th:text="${cottage.roomsNumber}"></td>
                 <td th:text="${cottage.bathroomsNumber}"></td>
                 <td th:text="${cottage.maxPeopleNum}"></td>
                 <td th:text="${cottage.minPricePerDay}"></td>
                 <td><a th:href="@{/request(cottageId=${cottage.id})}" class="button edit">Rent</a></td>
+                <td><a th:href="@{/review(cottageId=${cottage.id})}" class="button edit">Reviews</a></td>
             </tr>
             </tbody>
         </table>

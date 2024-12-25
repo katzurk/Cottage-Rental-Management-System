@@ -9,7 +9,8 @@ import java.sql.Date;
 public class Request {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requestSeq")
+    @SequenceGenerator(name = "requestSeq", sequenceName = "REQUESTS_SEQ")
     @Column(name = "request_id")
     private long id;
 
@@ -24,6 +25,7 @@ public class Request {
     private Date checkin_date;
     @Temporal(TemporalType.DATE)
     private java.sql.Date checkout_date;
+    // TODO: total price = (checkout_date - checkin_date) * cottage.minPricePerDay
     private float total_price;
 
     public Request() {}
