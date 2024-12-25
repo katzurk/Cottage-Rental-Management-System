@@ -20,6 +20,21 @@ th, td {
 }
 tr:hover {background-color: #27518f;}
 
+input, select, option {
+    line-height: 180%;
+    color: black;
+    font-size: medium;
+    border: none;
+    border-bottom: 3px solid rgb(6, 6, 80);
+    width: 25%;
+}
+
+.input-label {
+    color: white;
+    line-height: 20%;
+    font-size: larger;
+}
+
 .logo {
     height: 109px;
     background-color: #18161c;
@@ -131,6 +146,7 @@ tr:hover {background-color: #27518f;}
 }
 .cancel {
     background-color: #37638d;
+    width: 20%;
 }
 .edit {
     background-color: #37638d;
@@ -140,6 +156,15 @@ tr:hover {background-color: #27518f;}
 }
 .add {
     background-color: #285f21;
+    width: 20%;
+}
+
+.search {
+    width: 100%;
+}
+
+.search-label {
+    line-height: 130%;
 }
 
 input[type="submit"]{
@@ -152,9 +177,7 @@ input[type="submit"]{
 .error-message {
     color: rgb(172, 15, 15);
 }
-.input-label {
-    color: white;
-}
+
 
 .form-container {
     display: grid;

@@ -4,12 +4,12 @@
         <title>MojaChata.pl</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" th:href="@{/css/main.css}" />
-        <link rel="icon" type="image/png" href="img/chata_icon.png"/>
+        <link rel="icon" type="image/png" href="/img/chata_icon.png"/>
     </head>
     <body>
         <div class="logo" th:fragment="logo-bar">
             <a href="/index">
-                <img src="img/cottage_logo_Roni_made2.png" alt="MojaChata.pl" class="logo img"/></a>
+                <img src="/img/cottage_logo_Roni_made2.png" alt="MojaChata.pl" class="logo img"/></a>
             <div style="display: inline-block; vertical-align: middle; margin-bottom: 94px;">
                 <a th:if="${session.loggedInUser != null}"
                     th:href="@{/login}"
