@@ -31,8 +31,19 @@ input, select, option {
 
 .input-label {
     color: white;
-    line-height: 20%;
+    margin-bottom: 5px;
     font-size: larger;
+}
+
+.search {
+    width: 100%;
+    padding: 8px;
+    font-size: medium;
+    line-height: 1.8;
+    border: none;
+    border-bottom: 3px solid rgb(6, 6, 80);
+    box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 .logo {

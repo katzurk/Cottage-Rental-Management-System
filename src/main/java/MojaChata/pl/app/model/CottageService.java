@@ -11,7 +11,9 @@ public class CottageService {
 
     public List<Cottage> searchCottage(SearchDTO search) {
         return cottageRepository.searchCottage(
-                // search.getAddress(),
+                search.getAddressCountry(),
+                search.getAddressCity(),
+                search.getAddressStreet(),
                 search.getMinPrice(),
                 search.getMaxPrice(),
                 search.getMinSize(),

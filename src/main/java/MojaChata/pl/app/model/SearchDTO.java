@@ -1,7 +1,9 @@
 package MojaChata.pl.app.model;
 
 public class SearchDTO {
-    private String address;
+    private String addressCountry;
+    private String addressCity;
+    private String addressStreet;
     private Integer minPrice;
     private Integer maxPrice;
     private Integer minSize;
@@ -9,11 +11,17 @@ public class SearchDTO {
     private Long ownerId;
     SearchDTO() {};
 
-    public String getAddress() {
-        return address;
+    public String getAddressCity() {return addressCity;}
+    public void setAddressCity(String addressCity) {this.addressCity = addressCity;}
+
+    public String getAddressCountry() {return addressCountry;}
+    public void setAddressCountry(String addressCountry) {this.addressCountry = addressCountry;}
+
+    public String getAddressStreet() {
+        return addressStreet;
     }
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressStreet(String address) {
+        this.addressStreet = address;
     }
 
     public Integer getMinPrice() {
@@ -46,4 +54,5 @@ public class SearchDTO {
     public void setMaxSize(Integer maxSize) {
         this.maxSize = maxSize;
     }
+
 }
