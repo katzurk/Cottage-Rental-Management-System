@@ -15,8 +15,8 @@ http://localhost:8080
 Gotowe!
 
 ## Wymagania
-    • wykorzystanie bazy danych typu relacyjnego (W - 50%)
-    • kod aplikacji napisany w języku java z wykorzystaniem framework'u spring (P)
+    • wykorzystanie bazy danych typu relacyjnego (W - 100%)
+    • kod aplikacji napisany w języku java z wykorzystaniem framework'u spring
     • interfejs umożliwia wykonywanie operacji:
         1. dodanie mieszkania na wynajem (W - 100%)
         2. usunięcie mieszkania na wynajem (W - 100%)
@@ -25,8 +25,8 @@ Gotowe!
         5. możliwość rezerwacji mieszkania, które chcemy wynająć (K - 80%)
         6. filtrowanie po cenie, rozmiarze i destynacji mieszkania (K - DONE)
         7. możliwość akceptacji lub odrzucenia zgłoszenia przez właściciela (K - 0%)
-        8. dodanie opini (P -0%)
-        9. usunięcie opini (P -0%)
+        8. dodanie opini (W -0%)
+        9. usunięcie opini (T -0%)
         10. przeglądać tylko swoje mieszkania (T- 100%)
         11. logowanie do aplikacji (T - 80%)
         12. powiadomienie o zainteresowaniu mieszkaniem (informacja dla właściciela mieszkania o tym, że ma request do swojego mieszkania. Prezentuje się w postaci migającego przycisku moje mieszkania)(T - 50%)
@@ -41,9 +41,9 @@ Gotowe!
 ## Członkowie zespołu:
     • Weronika Maślana (wyżej W)
     • Katarzyna Kanicka (wyżej K)
-    • Paweł Marton (wyżej P)
     • Tomasz Foryś (wyżej T)
 
+    (Paweł Marton po uzgodnieniu z prowadzącym pap został odłączony od projektu)
 
 
 ### -----------BD1
@@ -51,15 +51,15 @@ Gotowe!
 Zadanie polega na realizacji projektu bazy danych pod wybrane zagadnienie. W ramach projektu należy uszczegółowić zakres pracy.
 
 ## Wymagania:
-    1. model ER (z nazwanymi związkami między encjami), model relacyjny (W-DONE)
-    2. skrypty DDL do stworzenia schematu bazy danych, (W-DONE)
-    3. skrypty do załadowania danych, (W-DONE)
-    4. definicje sekwencji, wyzwalaczy, procedur, funkcji,
+    1. model ER (z nazwanymi związkami między encjami), model relacyjny (W-100%)
+    2. skrypty DDL do stworzenia schematu bazy danych, (W-100%)
+    3. skrypty do załadowania danych, (W-100%)
+    4. definicje sekwencji, wyzwalaczy, procedur, funkcji, (T)
     5. skrypty testujące działanie zaprojektowanej bazy, (K)
     6. aplikację napisaną w języku JAVA oraz z wykorzystaniem technologii JDBC lub JPA. Aplikacja ma pozwolić na prostą komunikację/pobieranie danych z zaimplementowanej bazy. W przypadku realizacji łączonej z projektem z przedmiotu PAP, aplikacja powinna być zgodna z wymaganiami z projektu z przedmiotu PAP.
-    7. Minimalna liczba tabel dla projektów zespołowych (3- 4 osoby): 12 (W - DONE)
+    7. Minimalna liczba tabel dla projektów zespołowych (3- 4 osoby): 12 (W - 100%)
     8. krótki opis rozwiązania, (K)
-    9. analizę rozwiązania (znane ograniczenia, możliwości dalszego rozwoju oraz inne wnioski),
+    9. analizę rozwiązania (znane ograniczenia, możliwości dalszego rozwoju oraz inne wnioski), (T)
 
 ## Punktacja:
     • Opis tekstowy projektu (wraz z krytyczną analizą rozwiązania): 2 pkt.
@@ -77,4 +77,3 @@ Realizowanie projektu należy zakończyć do dnia 22 stycznia 2025 godz 23:59.
     • Weronika Maślana (wyżej W)
     • Katarzyna Kanicka (wyżej K)
     • Tomasz Foryś (wyżej T)
-(Paweł już ma zaliczone bazy danych)

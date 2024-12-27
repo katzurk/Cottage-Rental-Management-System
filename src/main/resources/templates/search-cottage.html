@@ -1,14 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Search</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <title>Cottage Search</title>
+    <th:block th:insert="~{index :: headerfiles}"></th:block>
 </head>
 <body>
-<div class="logo">
-    <a href="/index" class="button go-to-index">MojaChata.pl</a>
-</div>
+<div th:replace="~{index :: logo-bar}"></div>
 <div>
     <br>
     <form action="/search" method="get" th:object="${searchDTO}" class="form-container">
@@ -19,27 +16,27 @@
 
         <div class="single-column">
             <div class="form-item">
-                <label for="minPrice" class="input-label">Min Price:</label>
+                <label for="minPrice" class="input-label search-label">Min Price:</label>
                 <input type="number" id="minPrice" th:field="*{minPrice}" placeholder="Enter min price" min="0" />
             </div>
             <div class="form-item">
-                <label for="maxPrice" class="input-label">Max Price:</label>
+                <label for="maxPrice" class="input-label search-label">Max Price:</label>
                 <input type="number" id="maxPrice" th:field="*{maxPrice}" placeholder="Enter max price" min="0" />
             </div>
         </div>
 
         <div class="single-column">
             <div class="form-item">
-                <label for="minSize" class="input-label">Min Size:</label>
+                <label for="minSize" class="input-label search-label">Min Size:</label>
                 <input type="number" id="minSize" th:field="*{minSize}" placeholder="Enter min size" min="0" />
             </div>
             <div class="form-item">
-                <label for="maxSize" class="input-label">Max Size:</label>
+                <label for="maxSize" class="input-label search-label">Max Size:</label>
                 <input type="number" id="maxSize" th:field="*{maxSize}" placeholder="Enter max size" min="0" />
             </div>
         </div>
 
-        <input type="submit" value="Search" class="button">
+        <input type="submit" value="Search" class="button search">
     </form>
 </div>
 <br><br>
@@ -49,26 +46,32 @@
         <table>
             <thead>
             <tr>
-                <th style="width:20%;">Name</th>
-<!--                <th style="width:20%;">Address</th>-->
+                <th style="width:15%;">Name</th>
+                <th style="width:15%;">Address</th>
+                <th>City</th>
+                <th>Country</th>
                 <th>Size in m2</th>
                 <th>Number of Rooms</th>
                 <th>Number of Bathrooms</th>
                 <th>Maximum Number of People</th>
                 <th style="width:10%;">Price per day</th>
                 <th>Rent</th>
+                <th>Reviews</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="cottage : ${cottages}">
                 <td th:text="${cottage.name}"></td>
-                <!--<td th:text="${cottage.address}"></td> </div>  -->
+                <td th:text="${cottage.address.street} + ' ' + ${cottage.address.postalCode}"></td>
+                <td th:text="${cottage.address.city.name}"></td>
+                <td th:text="${cottage.address.city.country.name}"></td>
                 <td th:text="${cottage.size_m2}"></td>
                 <td th:text="${cottage.roomsNumber}"></td>
                 <td th:text="${cottage.bathroomsNumber}"></td>
                 <td th:text="${cottage.maxPeopleNum}"></td>
                 <td th:text="${cottage.minPricePerDay}"></td>
                 <td><a th:href="@{/request(cottageId=${cottage.id})}" class="button edit">Rent</a></td>
+                <td><a th:href="@{'/cottages/' + ${cottage.id} + '/reviews'}" class="button edit">Reviews</a></td>
             </tr>
             </tbody>
         </table>

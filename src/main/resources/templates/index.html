@@ -1,46 +1,51 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
+    <head th:fragment="headerfiles">
         <title>MojaChata.pl</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <link rel="icon" type="image/png" href="/img/chata_icon.png"/>
     </head>
     <body>
-        <div class="logo">
-            <a href="/index" class="button go-to-index">MojaChata.pl</a>
-            <a th:if="${session.loggedInUser != null}"
+        <div class="logo" th:fragment="logo-bar">
+            <a href="/index">
+                <img src="/img/cottage_logo_Roni_made2.png" alt="MojaChata.pl" class="logo img"/></a>
+            <div style="display: inline-block; vertical-align: middle; margin-bottom: 94px;">
+                <a th:if="${session.loggedInUser != null}"
+                    th:href="@{/login}"
+                    th:text="${session.loggedInUser.username}+ ' id: '+${session.loggedInUser.id}"
+                    class="button loggedin">
+                </a>
+                <a th:if="${session.loggedInUser != null}"
+                    th:href="@{/logout}"
+                    th:text="'Log out'"
+                    class="button logout">
+                </a>
+                <a th:unless="${session.loggedInUser != null}"
                 th:href="@{/login}"
-                th:text="${session.loggedInUser.username}+ ' id: '+${session.loggedInUser.id}"
-                class="button loggedin">
-            </a>
-            <a th:if="${session.loggedInUser != null}"
-                th:href="@{/logout}"
-                th:text="'Log out'"
-                class="button logout">
-            </a>
-            <a th:unless="${session.loggedInUser != null}"
-            th:href="@{/login}"
-            th:text="Login"
-            class="button login">
-            </a>
+                th:text="Login"
+                class="button login">
+                </a>
+            </div>
 
         </div>
         <div th:switch="${cottages}">
             <br>
             <br>
             <h2>For rent</h2>
-            <p style="text-align: center;">
-                <a th:href="@{${session.loggedInUser != null} ? '/reservations' : '/login'}" class="button go-to-subpage">Go to my reservations</a>
-                <a href="/search" class="button go-to-subpage">Find a cottage</a>
+            <p style="text-align: center;" >
+                <a th:href="@{${session.loggedInUser != null} ? '/reservations' : '/login'}">
+                    <img src="img/reserved_cottages_Roni_made.png" alt="Reserved cottages" class="for-rent-img"/></a>
+                <a href="/search">
+                    <img src="img/cottage_search_loop_Roni_made.png" alt="Find a cottage" class="for-rent-img"/>
+                </a>
             </p>
 
             <hr width="90%" size="3" color="#18161c" noshade>
             <h2>My cottages</h2>
-            <p style="text-align: center;">
+            <p style="text-align: center;" >
                 <a href="/my-cottages">
-                <button class="button go-to-subpage"  th:classappend="${hasRequests} ? 'go-to-subpage2' : 'go-to-subpage'">
-                    Go to my cottages
-                </button>
+                    <img src="img/my_cottages_Roni_made2.png" alt="Go to my cottages" class="my-cottages-img" th:classappend="${hasRequests} ? 'reservation-notification' : ''"/>
                 </a>
             </p>
         </div>

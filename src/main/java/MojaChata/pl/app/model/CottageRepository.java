@@ -14,7 +14,7 @@ public interface CottageRepository extends CrudRepository<Cottage, Long> {
             "AND (:maxPrice IS NULL OR c.minPricePerDay <= :maxPrice)" +
             "AND (:minSize IS NULL OR c.size_m2 >= :minSize)" +
             "AND (:maxSize IS NULL OR c.size_m2 <= :maxSize)" +
-            "AND (:ownerId IS NULL OR c.ownerId != :ownerId)"
+            "AND (:ownerId IS NULL OR c.owner.id != :ownerId)"
             )
     List<Cottage> searchCottage(
         //     @Param("address") String address,

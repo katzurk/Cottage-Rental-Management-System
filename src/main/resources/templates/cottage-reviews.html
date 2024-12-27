@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cottage Reviews</title>
+    <th:block th:insert="~{index :: headerfiles}"></th:block>
+</head>
+<body>
+    <div th:replace="~{index :: logo-bar}"></div>
+    <h2>Reviews</h2>
+    <div>
+        <p style="text-align: center;">
+            <a th:href="@{'/cottages/' + ${cottageId} + '/reviews/addReview'}" class="button add" th:if="${session.loggedInUser != null}">Add review</a>
+            <a th:href="@{/login}" class="button login" th:if="${session.loggedInUser == null}">Login to add review</a>
+            <a href="/search" class="button cancel">Cancel</a>
+        </p>
+
+        <div th:if="${#lists.isEmpty(reviews)}">
+            <h2>No results</h2>
+        </div>
+        <div th:unless="${#lists.isEmpty(reviews)}">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:60%;">Text</th>
+                        <th>Date posted</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="review : ${reviews}">
+                        <td th:text="${review.text}"></td>
+                        <td th:text="${#calendars.format(review.datePosted, 'dd MMMM yyyy')}"></td>
+                        <td th:text="${review.grade}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

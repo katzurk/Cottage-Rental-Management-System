@@ -2,10 +2,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Getting Started: Serving Web Content</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" th:href="@{/css/main.css}" />
+        <title>Update Cottage</title>
+        <th:block th:insert="~{index :: headerfiles}"></th:block>
     </head>
+
     <body>
         <h2 >Edit a cottage</h2>
         <form action="#" class="preserve-space"
@@ -16,29 +16,39 @@
             <input type="text" th:field="*{name}" id="name" placeholder="Name">
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></span>
 
-            <label for="address" class="input-label">Address</label>
-            <input type="text" th:field="*{address}" id="address" placeholder="Address">
-            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error-message"></span>
+            <label for="addressStreet" class="input-label">Address street</label>
+            <input type="text" th:field="*{address.street}" id="address" placeholder="AddressStreet">
+            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}" class="error-message"></span>
 
-            <label for="size" class="input-label">Size</label>
-            <input type="number" th:field="*{size}" id="size" placeholder="Size">
-            <span th:if="${#fields.hasErrors('size')}" th:errors="*{size}" class="error-message"></span>
+            <label for="addressPostalCode" class="input-label">Address postal code</label>
+            <input type="text" th:field="*{address.postalCode}" id="address" placeholder="AddressPostalCode">
+            <span th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}" class="error-message"></span>
+
+            <label for="city" class="input-label">City</label>
+            <select name="city" th:field="*{address.city.id}" id="city" placeholder="city">
+                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name} + ', population: ' + ${city.population}"/>
+            </select>
+            <span th:if="${#fields.hasErrors('address.city.name')}" th:errors="*{address.city.name}" class="error-message"></span>
+
+            <label for="size" class="input-label">Size in m2</label>
+            <input type="number" th:field="*{size_m2}" id="size_m2" placeholder="Size_m2" min="0">
+            <span th:if="${#fields.hasErrors('size_m2')}" th:errors="*{size_m2}" class="error-message"></span>
 
             <label for="roomsNumber" class="input-label">Number of rooms</label>
-            <input type="number" th:field="*{roomsNumber}" id="roomsNumber" placeholder="RoomsNumber">
+            <input type="number" th:field="*{roomsNumber}" id="roomsNumber" placeholder="RoomsNumber" min="0">
             <span th:if="${#fields.hasErrors('roomsNumber')}" th:errors="*{roomsNumber}" class="error-message"></span>
 
             <label for="bathroomsNumber" class="input-label">Number of bathrooms</label>
-            <input type="number" th:field="*{bathroomsNumber}" id="bathroomsNumber" placeholder="BathroomsNumber">
+            <input type="number" th:field="*{bathroomsNumber}" id="bathroomsNumber" placeholder="BathroomsNumber" min="0">
             <span th:if="${#fields.hasErrors('bathroomsNumber')}" th:errors="*{bathroomsNumber}" class="error-message"></span>
 
             <label for="maxPeopleNum" class="input-label">Maximum number of people</label>
-            <input type="number" th:field="*{maxPeopleNum}" id="maxPeopleNum" placeholder="MaxPeopleNum">
+            <input type="number" th:field="*{maxPeopleNum}" id="maxPeopleNum" placeholder="MaxPeopleNum" min="0">
             <span th:if="${#fields.hasErrors('maxPeopleNum')}" th:errors="*{maxPeopleNum}" class="error-message"></span>
 
-            <label for="price" class="input-label">Price</label>
-            <input type="number" th:field="*{price}" id="price" placeholder="Price">
-            <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error-message"></span>
+            <label for="minPricePerDay" class="input-label">Price</label>
+            <input type="number" th:field="*{minPricePerDay}" id="minPricePerDay" placeholder="minPricePerDay" min="0">
+            <span th:if="${#fields.hasErrors('minPricePerDay')}" th:errors="*{minPricePerDay}" class="error-message"></span>
 
             <p style="text-align: center;">
                 <input type="submit" value="Update cottage" class="button">
