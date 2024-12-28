@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class RequestApproval {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requestApprovalSeq")
-    @SequenceGenerator(name = "requestApprovalSeq", sequenceName = "REQUEST_APPROVALS_SEQ")
+    @SequenceGenerator(name = "requestApprovalSeq", sequenceName = "REQUEST_APPROVALS_SEQ", allocationSize = 1)
     @Column(name = "request_approval_id")
     private long id;
 
