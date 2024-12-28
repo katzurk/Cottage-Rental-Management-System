@@ -23,8 +23,6 @@ public class CottageController {
     private CottageRepository cottageRepository;
     @Autowired
     private CityRepository cityRepository;
-    @Autowired
-    private RequestRepository requestRepository;
 
     @GetMapping("/addcottage")
     public String showAddCottageForm(Model model, Cottage cottage) {
@@ -91,17 +89,6 @@ public class CottageController {
             .orElseThrow(() -> new IllegalArgumentException("Invalid cottage Id:" + id));
         cottageRepository.delete(cottage);
         return "redirect:/my-cottages";
-    }
-
-    @GetMapping("/reservations")
-    public String showReservations(@SessionAttribute(value = "loggedInUser", required = false) User login,
-                                   Model model) {
-        List<Request> requests = requestRepository.findByCustomerId(login.getId());
-        List<Cottage> cottages = requests.stream()
-                .map(Request::getCottage)
-                .collect(Collectors.toList());
-        model.addAttribute("cottages", cottages);
-        return "my-reservations";
     }
 }
 

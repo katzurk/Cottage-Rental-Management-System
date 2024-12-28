@@ -10,17 +10,26 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class RequestController {
     @Autowired
     private CottageRepository cottageRepository;
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private RequestApprovalsRepository requestApprovalsRepository;
+    @Autowired
+    private RequestService requestService;
 
     @GetMapping("/unrequest")
     public String unsendRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
                                 @RequestParam("cottageId") long cottageId, Model model) {
         Request request = requestRepository.findByCustomerIdAndCottageId(login.getId(), cottageId);
+        RequestApproval requestApproval = requestApprovalsRepository.findByRequestId(request.getId());
+        requestApprovalsRepository.delete(requestApproval);
         requestRepository.delete(request);
         return "redirect:/reservations";
     }
@@ -59,7 +68,7 @@ public class RequestController {
         }
 
         if (request.getCheckInDate() != null && request.getCheckOutDate() != null) {
-            if (request.getCheckInDate().after(request.getCheckOutDate())) {
+            if (request.getCheckInDate().isAfter(request.getCheckOutDate())) {
                 bindingResult.rejectValue("checkInDate", "checkInDate.invalid", "Check-in date cannot be after check-out date.");
             }
         }
@@ -70,7 +79,24 @@ public class RequestController {
 
         request.setCustomerId(login.getId());
         request.setCottage(cottage);
-        requestRepository.save(request);
+        requestService.sendRequest(request);
         return "redirect:/search";
+    }
+
+    @GetMapping("/reservations")
+    public String showReservations(@SessionAttribute(value = "loggedInUser", required = false) User login,
+                                   @RequestParam(value = "status", required = false) String status, Model model) {
+        List<RequestApproval> approvals;
+
+        if ("approved".equalsIgnoreCase(status)) {
+            approvals = requestApprovalsRepository.findByIsApprovedTrueAndRequest_CustomerId(login.getId());
+        } else if ("pending".equalsIgnoreCase(status)) {
+            approvals = requestApprovalsRepository.findByIsApprovedFalseAndRequest_CustomerId(login.getId());
+        } else {
+            approvals = requestApprovalsRepository.findByRequest_CustomerId(login.getId());
+        }
+
+        model.addAttribute("approvals", approvals);
+        return "my-reservations";
     }
 }

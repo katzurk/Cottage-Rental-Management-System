@@ -3,7 +3,7 @@ package MojaChata.pl.app.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name = "requests")
@@ -26,13 +26,13 @@ public class Request {
     @Column(name = "checkin_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Check-in date is required.")
-    private Date checkInDate;
+    private LocalDate checkInDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "checkout_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Check-out date is required.")
-    private Date checkOutDate;
+    private LocalDate checkOutDate;
 
     // TODO: total price = (checkout_date - checkin_date) * cottage.minPricePerDay
     @Column(name = "total_price")
@@ -43,8 +43,8 @@ public class Request {
     public Request(Cottage cottage, long customerId) {
         this.cottage = cottage;
         this.customerId = customerId;
-        this.checkInDate = new java.sql.Date(System.currentTimeMillis());
-        this.checkOutDate = new java.sql.Date(System.currentTimeMillis());
+        this.checkInDate = LocalDate.now();
+        this.checkOutDate = LocalDate.now();
         this.totalPrice = 0;
     }
 
@@ -69,17 +69,17 @@ public class Request {
         this.cottage = cottage;
     }
 
-    public Date getCheckInDate() {
+    public LocalDate getCheckInDate() {
         return checkInDate;
     }
-    public void setCheckInDate(Date checkInDate) {
+    public void setCheckInDate(LocalDate checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public Date getCheckOutDate() {
+    public LocalDate getCheckOutDate() {
         return checkOutDate;
     }
-    public void setCheckOutDate(Date checkOutDate) {
+    public void setCheckOutDate(LocalDate checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 

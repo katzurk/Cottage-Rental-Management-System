@@ -205,3 +205,26 @@ input[type="submit"]{
     display: flex;
     flex-direction: column;
 }
+
+.filter-buttons {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter-buttons .button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+    background-color: #37638d;
+}
+
+.filter-buttons .button:hover {
+    background-color: #27518f;
+}
+
+.filter-buttons .button.active {
+    background-color: #28a745;
+}

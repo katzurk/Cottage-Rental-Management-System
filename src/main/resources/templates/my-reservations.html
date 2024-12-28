@@ -7,38 +7,53 @@
 
 <body>
   <div th:replace="~{index :: logo-bar}"></div>
+<br>
+  <div class="filter-buttons">
+    <a th:href="@{/reservations(status='all')}" class="button"
+       th:classappend="${filter == 'all'} ? 'active'">All</a>
+    <a th:href="@{/reservations(status='approved')}" class="button"
+       th:classappend="${filter == 'approved'} ? 'active'">Approved</a>
+    <a th:href="@{/reservations(status='pending')}" class="button"
+       th:classappend="${filter == 'pending'} ? 'active'">Pending</a>
+  </div>
 
-  <div th:switch="${cottages}">
+  <div th:switch="${approvals}">
     <h2 th:case="null" >No reservations</h2>
     <div th:case="*">
       <h2 >My Reservations</h2>
       <table>
         <thead>
         <tr>
-          <th style="width:20%;">Name</th>
-          <th style="width:20%;">Address</th>
+          <th >Name</th>
+          <th >Address</th>
           <th >City</th>
           <th >Country</th>
           <th >Size</th>
           <th >Number of rooms</th>
           <th >Number of bathrooms</th>
           <th >Maximum number of people</th>
-          <th style="width:10%;">Price</th>
+          <th >Check-in date</th>
+          <th >Check-out date</th>
+          <th style="width:10%;">Total Price</th>
+          <th style="color:lawngreen;">Status</th>
           <th >Request</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cottage : ${cottages}">
-          <td th:text="${cottage.name}" ></td>
-          <td th:text="${cottage.address.street} + ' ' + ${cottage.address.postalCode}" ></td>
-          <td th:text="${cottage.address.city.name}"></td>
-          <td th:text="${cottage.address.city.country.name}"></td>
-          <td th:text="${cottage.size_m2}" ></td>
-          <td th:text="${cottage.roomsNumber}" ></td>
-          <td th:text="${cottage.bathroomsNumber}" ></td>
-          <td th:text="${cottage.maxPeopleNum}" ></td>
-          <td th:text="${cottage.minPricePerDay}" ></td>
-          <td><a th:href="@{/unrequest(cottageId=${cottage.id})}" class="button edit">Unsent</a></td>
+        <tr th:each="approval : ${approvals}">
+          <td th:text="${approval.request.cottage.name}" ></td>
+          <td th:text="${approval.request.cottage.address.street} + ' ' + ${approval.request.cottage.address.postalCode}" ></td>
+          <td th:text="${approval.request.cottage.address.city.name}"></td>
+          <td th:text="${approval.request.cottage.address.city.country.name}"></td>
+          <td th:text="${approval.request.cottage.size_m2}" ></td>
+          <td th:text="${approval.request.cottage.roomsNumber}" ></td>
+          <td th:text="${approval.request.cottage.bathroomsNumber}" ></td>
+          <td th:text="${approval.request.cottage.maxPeopleNum}" ></td>
+          <td th:text="${approval.request.checkInDate}" ></td>
+          <td th:text="${approval.request.checkOutDate}" ></td>
+          <td th:text="${approval.request.totalPrice}" ></td>
+          <td th:text="${approval.isApproved} ? 'Approved' : 'Pending'"></td>
+          <td><a th:href="@{/unrequest(cottageId=${approval.request.cottage.id})}" class="button edit">Cancel</a></td>
         </tr>
         </tbody>
       </table>
