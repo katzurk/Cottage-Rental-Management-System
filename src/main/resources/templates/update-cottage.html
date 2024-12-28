@@ -47,7 +47,7 @@
             <span th:if="${#fields.hasErrors('maxPeopleNum')}" th:errors="*{maxPeopleNum}" class="error-message"></span>
 
             <label for="minPricePerDay" class="input-label">Price</label>
-            <input type="number" th:field="*{minPricePerDay}" id="minPricePerDay" placeholder="minPricePerDay" min="0">
+            <input type="number" step=".01" th:field="*{minPricePerDay}" id="minPricePerDay" placeholder="minPricePerDay" min="0">
             <span th:if="${#fields.hasErrors('minPricePerDay')}" th:errors="*{minPricePerDay}" class="error-message"></span>
 
             <p style="text-align: center;">

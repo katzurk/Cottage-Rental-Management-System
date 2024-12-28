@@ -13,7 +13,7 @@ public class Facility {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "facilitySeq")
-    @SequenceGenerator(name = "facilitySeq", sequenceName = "FACILITIES_SEQ")
+    @SequenceGenerator(name = "facilitySeq", sequenceName = "FACILITIES_SEQ", allocationSize = 1)
     @Column(name = "facility_id")
     private long id;
 

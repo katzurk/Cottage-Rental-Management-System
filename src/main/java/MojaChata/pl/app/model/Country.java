@@ -13,7 +13,7 @@ public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "countrySeq")
-    @SequenceGenerator(name = "countrySeq", sequenceName = "COUNTRIES_SEQ")
+    @SequenceGenerator(name = "countrySeq", sequenceName = "COUNTRIES_SEQ", allocationSize = 1)
     @Column(name = "country_id")
     private long id;
 

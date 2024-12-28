@@ -13,7 +13,7 @@ public class Restriction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restrictionSeq")
-    @SequenceGenerator(name = "restrictionSeq", sequenceName = "RESTRICTINOS_SEQ")
+    @SequenceGenerator(name = "restrictionSeq", sequenceName = "RESTRICTINOS_SEQ", allocationSize = 1)
     @Column(name = "restriction_id")
     private long id;
 

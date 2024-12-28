@@ -27,7 +27,7 @@ public class Cottage {
     @Id
     @Column(name = "cottage_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cottageSeq")
-    @SequenceGenerator(name = "cottageSeq", sequenceName = "COTTAGES_SEQ")
+    @SequenceGenerator(name = "cottageSeq", sequenceName = "COTTAGES_SEQ" , allocationSize = 1)
     private long id;
 
     @NotBlank(message = "Name is mandatory")
