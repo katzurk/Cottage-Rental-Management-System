@@ -16,7 +16,7 @@ public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "citySeq")
-    @SequenceGenerator(name = "citySeq", sequenceName = "CITIES_SEQ")
+    @SequenceGenerator(name = "citySeq", sequenceName = "CITIES_SEQ", allocationSize = 1)
     @Column(name = "city_id")
     private long id;
 
@@ -27,6 +27,7 @@ public class City {
     private Double population;
 
     @NotNull(message = "size is mandatory")
+    @Column (name = "city_size")
     private Integer size;
 
     @ManyToOne

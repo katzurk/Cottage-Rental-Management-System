@@ -11,7 +11,7 @@ public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requestSeq")
-    @SequenceGenerator(name = "requestSeq", sequenceName = "REQUESTS_SEQ")
+    @SequenceGenerator(name = "requestSeq", sequenceName = "REQUESTS_SEQ", allocationSize = 1)
     @Column(name = "request_id")
     private long id;
 

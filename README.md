@@ -25,7 +25,7 @@ Gotowe!
         5. możliwość rezerwacji mieszkania, które chcemy wynająć (K - 80%)
         6. filtrowanie po cenie, rozmiarze i destynacji mieszkania (K - DONE)
         7. możliwość akceptacji lub odrzucenia zgłoszenia przez właściciela (K - 0%)
-        8. dodanie opini (W -0%)
+        8. dodanie opini (W -100%)
         9. usunięcie opini (T -0%)
         10. przeglądać tylko swoje mieszkania (T- 100%)
         11. logowanie do aplikacji (T - 80%)
