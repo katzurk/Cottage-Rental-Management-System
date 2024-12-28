@@ -77,7 +77,7 @@
                 <td th:text="${cottage.bathroomsNumber}"></td>
                 <td th:text="${cottage.maxPeopleNum}"></td>
                 <td th:text="${cottage.minPricePerDay}"></td>
-                <td><a th:href="@{/request(cottageId=${cottage.id})}" class="button edit">Rent</a></td>
+                <td><a th:href="@{'/request/addRequest/' + ${cottage.id}}" class="button edit">Rent</a></td>
                 <td><a th:href="@{'/cottages/' + ${cottage.id} + '/reviews'}" class="button edit">Reviews</a></td>
             </tr>
             </tbody>

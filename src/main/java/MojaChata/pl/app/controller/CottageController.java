@@ -103,13 +103,5 @@ public class CottageController {
         model.addAttribute("cottages", cottages);
         return "my-reservations";
     }
-
-    @GetMapping("/unrequest")
-    public String unsendRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
-                                @RequestParam("cottageId") long cottageId, Model model) {
-        Request request = requestRepository.findByCustomerIdAndCottageId(login.getId(), cottageId);
-        requestRepository.delete(request);
-        return "redirect:/reservations";
-    }
 }
 

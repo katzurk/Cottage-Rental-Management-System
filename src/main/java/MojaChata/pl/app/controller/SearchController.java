@@ -14,10 +14,6 @@ import java.util.List;
 @Controller
 public class SearchController {
     @Autowired
-    private CottageRepository cottageRepository;
-    @Autowired
-    private RequestRepository requestRepository;
-    @Autowired
     private CottageService cottageService;
 
     @GetMapping("/search")
@@ -25,7 +21,6 @@ public class SearchController {
                                 @ModelAttribute SearchDTO search, Model model) {
         if (login != null) {
             search.setOwnerId(login.getId());
-            System.out.println(login.getId());
         }
 
         List<Cottage> cottages = cottageService.searchCottage(search);
@@ -33,19 +28,5 @@ public class SearchController {
         model.addAttribute("searchDTO", search);
         model.addAttribute("cottages", cottages);
         return "search-cottage";
-    }
-
-    @GetMapping("/request")
-    public String sendRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
-                              @RequestParam("cottageId") long cottageId, Model model) {
-        if (login == null) {
-            return "redirect:/login";
-        }
-        Cottage cottage = cottageRepository.findById(cottageId)
-                .orElseThrow(() -> new RuntimeException("Invalid cottage Id: " + cottageId));
-        if (!requestRepository.existsByCustomerIdAndCottageId(login.getId(), cottage.getId())) {
-            requestRepository.save(new Request(cottage, login.getId()));
-        }
-        return "redirect:/search";
     }
 }
