@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "equipmentSeq")
-    @SequenceGenerator(name = "equipmentSeq", sequenceName = "EQUIPMENTS_SEQ")
+    @SequenceGenerator(name = "equipmentSeq", sequenceName = "EQUIPMENTS_SEQ", allocationSize = 1)
     @Column(name = "equipment_id")
     private long id;
 

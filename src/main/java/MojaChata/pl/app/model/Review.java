@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity (name= "reviews")
@@ -18,7 +17,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reviewSeq")
-    @SequenceGenerator(name = "reviewSeq", sequenceName = "REVIEWS_SEQ")
+    @SequenceGenerator(name = "reviewSeq", sequenceName = "REVIEWS_SEQ", allocationSize = 1)
     @Column(name = "review_id")
     private long id;
 
