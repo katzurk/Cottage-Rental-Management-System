@@ -25,20 +25,6 @@ public class RequestController {
         return "redirect:/reservations";
     }
 
-//    @GetMapping("/request")
-//    public String showAddRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
-//                              @RequestParam("cottageId") long cottageId, Model model) {
-//        if (login == null) {
-//            return "redirect:/login";
-//        }
-////        Cottage cottage = cottageRepository.findById(cottageId)
-////                .orElseThrow(() -> new RuntimeException("Invalid cottage Id: " + cottageId));
-////        if (!requestRepository.existsByCustomerIdAndCottageId(login.getId(), cottage.getId())) {
-////            requestRepository.save(new Request(cottage, login.getId()));
-////        }
-//        return "add-request";
-//    }
-
     @GetMapping("/request/addRequest/{cottageId}")
     public String AddRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
                                 @PathVariable("cottageId") long cottageId, Model model, Request request) {
