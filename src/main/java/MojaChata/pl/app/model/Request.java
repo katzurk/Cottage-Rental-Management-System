@@ -34,7 +34,6 @@ public class Request {
     @NotNull(message = "Check-out date is required.")
     private LocalDate checkOutDate;
 
-    // TODO: total price = (checkout_date - checkin_date) * cottage.minPricePerDay
     @Column(name = "total_price")
     private float totalPrice;
 
