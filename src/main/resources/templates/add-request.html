@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>New Request</title>
+  <th:block th:insert="~{index :: headerfiles}"></th:block>
+</head>
+
+<body>
+<h2>Add a request</h2>
+<hr width="90%" size="3" color="#18161c" noshade>
+<form action="#" class="preserve-space" th:action="@{'/request/addRequest/' + ${cottageId}}" th:object="${request}" method="post">
+  <label for="checkInDate" class="input-label">Check-in Date:</label>
+  <input type="date" th:field="*{checkInDate}" id="checkInDate">
+  <span th:if="${#fields.hasErrors('checkInDate')}" th:errors="*{checkInDate}" class="error-message"></span>
+
+  <label for="checkOutDate" class="input-label">Check-out Date:</label>
+  <input type="date" th:field="*{checkOutDate}" id="checkOutDate">
+  <span th:if="${#fields.hasErrors('checkOutDate')}" th:errors="*{checkOutDate}" class="error-message"></span>
+
+  <p style="text-align: center;">
+    <input type="submit" value="Add request" class="button">
+    <a href="/search" class="button cancel">Cancel</a>
+  </p>
+</form>
+</body>
+</html>

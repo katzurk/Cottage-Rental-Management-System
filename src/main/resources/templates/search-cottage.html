@@ -9,30 +9,37 @@
 <div>
     <br>
     <form action="/search" method="get" th:object="${searchDTO}" class="form-container">
-        <!-- <div class="form-item">
-            <label for="address" class="input-label">Address:</label>
-            <input type="text" id="address" th:field="*{address}" placeholder="Enter address" />
-        </div>  -->
-
+        <div class="form-item">
+            <label for="addressCountry" class="input-label">Country:</label>
+            <input type="text" class="search" id="addressCountry" th:field="*{addressCountry}" placeholder="Enter country" />
+        </div>
+        <div class="form-item">
+            <label for="addressCity" class="input-label">City:</label>
+            <input type="text" class="search" id="addressCity" th:field="*{addressCity}" placeholder="Enter city" />
+        </div>
+        <div class="form-item">
+            <label for="addressStreet" class="input-label">Street:</label>
+            <input type="text" class="search" id="addressStreet" th:field="*{addressStreet}" placeholder="Enter street" />
+        </div>
         <div class="single-column">
             <div class="form-item">
                 <label for="minPrice" class="input-label search-label">Min Price:</label>
-                <input type="number" id="minPrice" th:field="*{minPrice}" placeholder="Enter min price" min="0" />
+                <input type="number" class="search" id="minPrice" th:field="*{minPrice}" placeholder="Enter min price" min="0" />
             </div>
             <div class="form-item">
                 <label for="maxPrice" class="input-label search-label">Max Price:</label>
-                <input type="number" id="maxPrice" th:field="*{maxPrice}" placeholder="Enter max price" min="0" />
+                <input type="number" class="search" id="maxPrice" th:field="*{maxPrice}" placeholder="Enter max price" min="0" />
             </div>
         </div>
 
         <div class="single-column">
             <div class="form-item">
                 <label for="minSize" class="input-label search-label">Min Size:</label>
-                <input type="number" id="minSize" th:field="*{minSize}" placeholder="Enter min size" min="0" />
+                <input type="number" class="search" id="minSize" th:field="*{minSize}" placeholder="Enter min size" min="0" />
             </div>
             <div class="form-item">
                 <label for="maxSize" class="input-label search-label">Max Size:</label>
-                <input type="number" id="maxSize" th:field="*{maxSize}" placeholder="Enter max size" min="0" />
+                <input type="number" class="search" id="maxSize" th:field="*{maxSize}" placeholder="Enter max size" min="0" />
             </div>
         </div>
 
@@ -70,7 +77,7 @@
                 <td th:text="${cottage.bathroomsNumber}"></td>
                 <td th:text="${cottage.maxPeopleNum}"></td>
                 <td th:text="${cottage.minPricePerDay}"></td>
-                <td><a th:href="@{/request(cottageId=${cottage.id})}" class="button edit">Rent</a></td>
+                <td><a th:href="@{'/request/addRequest/' + ${cottage.id}}" class="button edit">Rent</a></td>
                 <td><a th:href="@{'/cottages/' + ${cottage.id} + '/reviews'}" class="button edit">Reviews</a></td>
             </tr>
             </tbody>
