@@ -34,8 +34,8 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        Model model, HttpSession session) {
+    @RequestParam("password") String password,
+    Model model, HttpSession session) {
         Optional<User> userOpt = loginRepository.findByUsername(username);
 
         if (userOpt.isPresent() && bc.matches(password, userOpt.get().getPasswordHash())) {
