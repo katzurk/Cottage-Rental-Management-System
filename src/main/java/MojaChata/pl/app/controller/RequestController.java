@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -23,13 +26,18 @@ public class RequestController {
     private RequestApprovalsRepository requestApprovalsRepository;
     @Autowired
     private RequestService requestService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/unrequest")
     public String unsendRequest(@SessionAttribute(value = "loggedInUser", required = false) User login,
-                                @RequestParam("cottageId") long cottageId, Model model) {
-        Request request = requestRepository.findByCustomerIdAndCottageId(login.getId(), cottageId);
-        RequestApproval requestApproval = requestApprovalsRepository.findByRequestId(request.getId());
-        requestApprovalsRepository.delete(requestApproval);
+                                @RequestParam("requestId") long requestId, Model model) {
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid request Id:" + requestId));
+        RequestApproval requestApproval = requestApprovalsRepository.findByRequestId(requestId);
+        if (requestApproval != null) {
+            requestApprovalsRepository.delete(requestApproval);
+        }
         requestRepository.delete(request);
         return "redirect:/reservations";
     }
@@ -43,7 +51,7 @@ public class RequestController {
 
         Cottage cottage = cottageRepository.findById(cottageId)
                 .orElseThrow(() -> new RuntimeException("Invalid cottage Id: " + cottageId));
-        if (requestRepository.existsByCustomerIdAndCottageId(login.getId(), cottage.getId())) {
+        if (requestService.existsByCustomerIdAndCottageIdAndNoApproval(login.getId(), cottage.getId())) {
             return "redirect:/reservations";
         }
 
@@ -86,17 +94,76 @@ public class RequestController {
     @GetMapping("/reservations")
     public String showReservations(@SessionAttribute(value = "loggedInUser", required = false) User login,
                                    @RequestParam(value = "status", required = false) String status, Model model) {
-        List<RequestApproval> approvals;
+        List<Request> requests = requestRepository.findByCustomerId(login.getId());
+        Map<Long, Integer> requestStatus = new HashMap<>();
 
         if ("approved".equalsIgnoreCase(status)) {
-            approvals = requestApprovalsRepository.findByIsApprovedTrueAndRequest_CustomerId(login.getId());
+            requests = requests.stream()
+                    .filter(request -> requestService.existsByRequestIdAndIsApproved(request.getId(), true))
+                    .collect(Collectors.toList());
+        } else if ("rejected".equalsIgnoreCase(status)) {
+            requests = requests.stream()
+                    .filter(request -> requestService.existsByRequestIdAndIsApproved(request.getId(), false))
+                    .collect(Collectors.toList());
         } else if ("pending".equalsIgnoreCase(status)) {
-            approvals = requestApprovalsRepository.findByIsApprovedFalseAndRequest_CustomerId(login.getId());
-        } else {
-            approvals = requestApprovalsRepository.findByRequest_CustomerId(login.getId());
+            requests = requests.stream()
+                    .filter(request -> !requestApprovalsRepository.existsByRequestId(request.getId()))
+                    .collect(Collectors.toList());
         }
 
-        model.addAttribute("approvals", approvals);
+        for (Request request: requests) {
+            requestStatus.put(request.getId(), requestService.getStatus(request.getId()));
+        }
+
+        model.addAttribute("requests", requests);
+        model.addAttribute("requestStatus", requestStatus);
         return "my-reservations";
     }
+
+    @GetMapping("/request/{id}")
+    public String showRequests(@PathVariable("id") long cottageId, Model model) {
+        List<Request> requests = requestRepository.findByCottageId(cottageId);
+
+        if (!requests.isEmpty()) {
+            requests = requests.stream()
+                    .filter(request -> !requestApprovalsRepository.existsByRequestId(request.getId()))
+                    .collect(Collectors.toList());
+        }
+
+        Map<Long, String> users = new HashMap<>();
+        for (Request request : requests) {
+            User customer = userRepository.findById(request.getCustomerId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid user"));
+            users.put(request.getId(), customer.getUsername());
+        }
+
+        model.addAttribute("requests", requests);
+        model.addAttribute("users", users);
+        return "cottage-requests";
+    }
+
+    @GetMapping("/accept")
+    public String acceptRequest(@RequestParam("requestId") long requestId, Model model) {
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid request Id:" + requestId));
+        RequestApproval requestApproval = new RequestApproval();
+        requestApproval.setApproved(true);
+        requestApproval.setDateCreated(LocalDate.now());
+        requestApproval.setRequest(request);
+        requestApprovalsRepository.save(requestApproval);
+        return "redirect:/request/" + request.getCottage().getId();
+    }
+
+    @GetMapping("/reject")
+    public String rejectRequest(@RequestParam("requestId") long requestId, Model model) {
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid request Id:" + requestId));
+        RequestApproval requestApproval = new RequestApproval();
+        requestApproval.setApproved(false);
+        requestApproval.setDateCreated(LocalDate.now());
+        requestApproval.setRequest(request);
+        requestApprovalsRepository.save(requestApproval);
+        return "redirect:/request/" + request.getCottage().getId();
+    }
+
 }

@@ -14,6 +14,8 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class CottageController {
@@ -23,6 +25,8 @@ public class CottageController {
     private CottageRepository cottageRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private RequestService requestService;
 
     @GetMapping("/addcottage")
     public String showAddCottageForm(Model model, Cottage cottage) {
@@ -43,8 +47,16 @@ public class CottageController {
 
     @GetMapping("/my-cottages")
     public String showCottageList(Model model, @SessionAttribute(value = "loggedInUser", required = false) User login) {
-        if (login!= null)
-            model.addAttribute("cottages", cottageRepository.findByOwnerId(login.getId()));
+        if (login!= null) {
+            List<Cottage> cottages = cottageRepository.findByOwnerId(login.getId());
+            Map<Long, Boolean> cottageHasRequests = new HashMap<>();
+            for (Cottage cottage : cottages) {
+                boolean hasRequests = requestService.existsByCottageIdAndNoApproval(cottage.getId());
+                cottageHasRequests.put(cottage.getId(), hasRequests);
+            }
+            model.addAttribute("cottages", cottages);
+            model.addAttribute("hasRequests", cottageHasRequests);
+        }
         return "my-cottages";
     }
 

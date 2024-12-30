@@ -7,9 +7,6 @@ import java.util.List;
 
 @Repository
 public interface RequestApprovalsRepository extends CrudRepository<RequestApproval, Long> {
-    boolean existsByRequestIdAndIsApproved(Long requestId, boolean isApproved);
+    boolean existsByRequestId(Long requestId);
     RequestApproval findByRequestId(Long requestId);
-    List<RequestApproval> findByRequest_CustomerId(Long customerId);
-    List<RequestApproval> findByIsApprovedTrueAndRequest_CustomerId(Long customerId);
-    List<RequestApproval> findByIsApprovedFalseAndRequest_CustomerId(Long customerId);
 }
