@@ -33,7 +33,6 @@ public class User {
     User() {}
 
     User(String username, String passwordHash) {
-    // TODO: add hashing for password
 
     this.username = username;
     this.passwordHash = passwordHash;

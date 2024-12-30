@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.Optional;
 
 
@@ -24,6 +24,8 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserRepository loginRepository;
+    
+    BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 
     @GetMapping("/login")
     public String showLoginForm() {
@@ -32,10 +34,11 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        Model model, HttpSession session) {
+    @RequestParam("password") String password,
+    Model model, HttpSession session) {
         Optional<User> userOpt = loginRepository.findByUsername(username);
-        if (userOpt.isPresent() && userOpt.get().getPasswordHash().equals(password)) {
+
+        if (userOpt.isPresent() && bc.matches(password, userOpt.get().getPasswordHash())) {
 
             model.addAttribute("loggedInUser", userOpt.get());
             // System.out.println(session.getAttribute("loggedInUser"));
@@ -54,7 +57,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(User login, @RequestParam("username") String username,
-                           @RequestParam("password") String password,
+                           @RequestParam("passwordHash") String password,
                            @RequestParam("confirmPassword") String confirmPassword,
                            Model model) {
     if (loginRepository.findByUsername(username).isPresent()) {
@@ -66,7 +69,7 @@ public class UserController {
         model.addAttribute("error", "Passwords do not match.");
         return "register";
     }
-
+    login.setPasswordHash(bc.encode(password));
     loginRepository.save(login);
 
     return "redirect:/login";
