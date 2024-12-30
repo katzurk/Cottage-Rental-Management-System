@@ -1,6 +1,8 @@
 package MojaChata.pl.app.model;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,8 +10,7 @@ import java.util.List;
 @Repository
 public interface RequestRepository extends CrudRepository<Request, Long> {
     List<Request> findByCustomerId(Long customerId);
-    Request findByCustomerIdAndCottageId(Long customerId, Long cottageId);
+    List<Request> findByCustomerIdAndCottageId(Long customerId, Long cottageId);
     List<Request> findByCottageId(Long cottageId);
-
     boolean existsByCustomerIdAndCottageId(Long customerId, Long cottageId);
 }

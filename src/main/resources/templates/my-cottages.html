@@ -30,6 +30,7 @@
                             <th >Number of bathrooms</th>
                             <th >Maximum number of people</th>
                             <th style="width:10%;">Price</th>
+                            <th >Requests</th>
                             <th >Edit</th>
                             <th >Delete</th>
                         </tr>
@@ -47,6 +48,7 @@
                             <td th:text="${cottage.bathroomsNumber}" ></td>
                             <td th:text="${cottage.maxPeopleNum}" ></td>
                             <td th:text="${cottage.minPricePerDay}" ></td>
+                            <td><a th:classappend="${hasRequests[cottage.id]} ? 'reservation-notification' : ''" class="button edit">Requests</a></td>
                             <td><a th:href="@{/edit/{id}(id=${cottage.id})}" class="button edit">Edit</a></td>
                             <td><a th:href="@{/delete/{id}(id=${cottage.id})}" class="button delete">Delete</a></td>
                         </tr>
