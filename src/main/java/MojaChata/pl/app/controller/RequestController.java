@@ -142,12 +142,13 @@ public class RequestController {
         return "cottage-requests";
     }
 
-    @GetMapping("/accept")
-    public String acceptRequest(@RequestParam("requestId") long requestId, Model model) {
+    @GetMapping("/consider")
+    public String acceptRequest(@RequestParam("requestId") long requestId,
+                                @RequestParam("answer") boolean answer, Model model) {
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid request Id:" + requestId));
         RequestApproval requestApproval = new RequestApproval();
-        requestApproval.setApproved(true);
+        requestApproval.setApproved(answer);
         requestApproval.setDateCreated(LocalDate.now());
         requestApproval.setRequest(request);
         requestApprovalsRepository.save(requestApproval);
