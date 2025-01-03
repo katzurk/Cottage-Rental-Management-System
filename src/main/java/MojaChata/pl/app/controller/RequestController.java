@@ -155,16 +155,4 @@ public class RequestController {
         return "redirect:/request/" + request.getCottage().getId();
     }
 
-    @GetMapping("/reject")
-    public String rejectRequest(@RequestParam("requestId") long requestId, Model model) {
-        Request request = requestRepository.findById(requestId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid request Id:" + requestId));
-        RequestApproval requestApproval = new RequestApproval();
-        requestApproval.setApproved(false);
-        requestApproval.setDateCreated(LocalDate.now());
-        requestApproval.setRequest(request);
-        requestApprovalsRepository.save(requestApproval);
-        return "redirect:/request/" + request.getCottage().getId();
-    }
-
 }
