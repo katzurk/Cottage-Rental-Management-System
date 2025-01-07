@@ -77,4 +77,12 @@ public class ReviewController {
         return "redirect:/cottages/" + cottageId + "/reviews";
     }
 
+    @GetMapping("/cottages/{cottageId}/reviews/delete/{reviewId}")
+    public String deleteReview(@PathVariable("reviewId") long id, Model model) {
+        Review review = reviewRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid review Id:" + id));
+        reviewRepository.delete(review);
+        return "redirect:/cottages/{cottageId}/reviews";
+    }
 }
+

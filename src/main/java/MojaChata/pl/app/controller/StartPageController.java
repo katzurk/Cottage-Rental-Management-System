@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class StartPageController {
     @Autowired
     private CottageRepository cottageRepository;
-    @Autowired
-    private RequestRepository requestRepository;
+    // @Autowired
+    // private RequestRepository requestRepository;
     @Autowired
     private RequestService requestService;
 

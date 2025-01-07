@@ -17,11 +17,11 @@ public class User {
     @SequenceGenerator(name = "userSeq", sequenceName = "USERS_SEQ", allocationSize = 1)
     private long id;
 
-    private String name;
+    // private String name;
 
-    private String surname;
+    // private String surname;
 
-    private String email;
+    // private String email;
 
     @NotBlank(message = "username is mandatory")
     private String username;

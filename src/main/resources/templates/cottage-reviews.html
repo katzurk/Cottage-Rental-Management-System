@@ -24,6 +24,7 @@
                         <th style="width:60%;">Text</th>
                         <th>Date posted</th>
                         <th>Grade</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,9 @@
                         <td th:text="${review.text}"></td>
                         <td th:text="${#calendars.format(review.datePosted, 'dd MMMM yyyy')}"></td>
                         <td th:text="${review.grade}"></td>
+                        <td th:if="${session.loggedInUser != null && session.loggedInUser.id == review.author.id}"><a 
+                            th:href="@{/cottages/{cId}/reviews/delete/{rId}(cId=${cottageId}, rId=${review.id})}" class="button delete">Delete</a></td>
+                        <td th:unless="${session.loggedInUser != null && session.loggedInUser.id == review.author.id}"></td>
                     </tr>
                 </tbody>
             </table>
