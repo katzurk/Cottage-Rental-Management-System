@@ -29,8 +29,8 @@
         <td th:text="${request.checkInDate}"></td>
         <td th:text="${request.checkOutDate}"></td>
         <td th:text="${request.totalPrice}"></td>
-        <td><a th:href="@{/accept(requestId=${request.id})}" class="button edit">Accept</a></td>
-        <td><a th:href="@{/reject(requestId=${request.id})}" class="button delete">Reject</a></td>
+        <td><a th:href="@{/consider(requestId=${request.id}, answer=1)}" class="button edit">Accept</a></td>
+        <td><a th:href="@{/consider(requestId=${request.id}, answer=0)}" class="button delete">Reject</a></td>
       </tr>
       </tbody>
     </table>
