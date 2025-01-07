@@ -26,10 +26,10 @@ Gotowe!
         6. filtrowanie po cenie, rozmiarze i destynacji mieszkania (K - 100%)
         7. możliwość akceptacji lub odrzucenia zgłoszenia przez właściciela (K - 100%)
         8. dodanie opini (W -100%)
-        9. usunięcie opini (T -0%)
+        9. usunięcie opini (T -100%)
         10. przeglądać tylko swoje mieszkania (T- 100%)
-        11. logowanie do aplikacji (T - 80%)
-        12. powiadomienie o zainteresowaniu mieszkaniem (informacja dla właściciela mieszkania o tym, że ma request do swojego mieszkania. Prezentuje się w postaci migającego przycisku moje mieszkania)(T - 50%)
+        11. logowanie do aplikacji (T - 100%)
+        12. powiadomienie o zainteresowaniu mieszkaniem (informacja dla właściciela mieszkania o tym, że ma request do swojego mieszkania. Prezentuje się w postaci migającego przycisku moje mieszkania)(T - 100%)
         13. * historia
         14. * anulowanie rezerwacji
 
@@ -54,12 +54,12 @@ Zadanie polega na realizacji projektu bazy danych pod wybrane zagadnienie. W ram
     1. model ER (z nazwanymi związkami między encjami), model relacyjny (W-100%)
     2. skrypty DDL do stworzenia schematu bazy danych, (W-100%)
     3. skrypty do załadowania danych, (W-100%)
-    4. definicje sekwencji, wyzwalaczy, procedur, funkcji, (T)
-    5. skrypty testujące działanie zaprojektowanej bazy, (K)
-    6. aplikację napisaną w języku JAVA oraz z wykorzystaniem technologii JDBC lub JPA. Aplikacja ma pozwolić na prostą komunikację/pobieranie danych z zaimplementowanej bazy. W przypadku realizacji łączonej z projektem z przedmiotu PAP, aplikacja powinna być zgodna z wymaganiami z projektu z przedmiotu PAP.
+    4. definicje sekwencji, wyzwalaczy, procedur, funkcji, (K i W, razem-100%)
+    5. skrypty testujące działanie zaprojektowanej bazy, (K i W, razem-100%)
+    6. aplikację napisaną w języku JAVA oraz z wykorzystaniem technologii JDBC lub JPA. Aplikacja ma pozwolić na prostą komunikację/pobieranie danych z zaimplementowanej bazy. W przypadku realizacji łączonej z projektem z przedmiotu PAP, aplikacja powinna być zgodna z wymaganiami z projektu z przedmiotu PAP. (wszyscy)
     7. Minimalna liczba tabel dla projektów zespołowych (3- 4 osoby): 12 (W - 100%)
-    8. krótki opis rozwiązania, (K)
-    9. analizę rozwiązania (znane ograniczenia, możliwości dalszego rozwoju oraz inne wnioski), (T)
+    8. krótki opis rozwiązania, (K-100%)
+    9. analizę rozwiązania (znane ograniczenia, możliwości dalszego rozwoju oraz inne wnioski), (T-100%)
 
 ## Punktacja:
     • Opis tekstowy projektu (wraz z krytyczną analizą rozwiązania): 2 pkt.
