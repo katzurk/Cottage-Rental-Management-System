@@ -115,26 +115,26 @@ BEGIN
 END;
 
 --checks whether the cottage is available during the specified time
-CREATE OR REPLACE FUNCTION is_cottage_available(
-    p_cottage_id NUMBER,
-    p_checkin_date DATE,
-    p_checkout_date DATE
-) RETURN number IS
-    v_conflicting_requests NUMBER;
+CREATE OR REPLACE FUNCTION IS_COTTAGE_AVAILABLE(
+    P_COTTAGE_ID NUMBER,
+    P_CHECKIN_DATE DATE,
+    P_CHECKOUT_DATE DATE
+) RETURN NUMBER IS
+    V_CONFLICTING_REQUESTS NUMBER;
 BEGIN
     SELECT COUNT(*)
-    INTO v_conflicting_requests
-    FROM requests r
-    JOIN request_approvals ra ON r.request_id = ra.request_id
-    WHERE r.cottage_id = p_cottage_id
-      AND ra.is_approved = 1
+    INTO V_CONFLICTING_REQUESTS
+    FROM REQUESTS R
+    JOIN REQUEST_APPROVALS RA ON R.REQUEST_ID = RA.REQUEST_ID
+    WHERE R.COTTAGE_ID = P_COTTAGE_ID
+      AND RA.IS_APPROVED = 1
       AND (
-           (r.checkin_date <= p_checkin_date AND r.checkout_date >= p_checkin_date) OR
-           (r.checkin_date <= p_checkout_date AND r.checkout_date >= p_checkout_date) OR
-           (r.checkin_date >= p_checkin_date AND r.checkout_date <= p_checkout_date)
+           (R.CHECKIN_DATE <= P_CHECKIN_DATE AND R.CHECKOUT_DATE >= P_CHECKIN_DATE) OR
+           (R.CHECKIN_DATE <= P_CHECKOUT_DATE AND R.CHECKOUT_DATE >= P_CHECKOUT_DATE) OR
+           (R.CHECKIN_DATE >= P_CHECKIN_DATE AND R.CHECKOUT_DATE <= P_CHECKOUT_DATE)
       );
 
-    IF v_conflicting_requests = 0 THEN
+    IF V_CONFLICTING_REQUESTS = 0 THEN
         RETURN 1;
     ELSE
         RETURN 0;
