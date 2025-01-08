@@ -267,16 +267,21 @@ BEGIN
     :NEW.TOTAL_PRICE := V_DAILY_PRICE * V_DAYS;
 END;
 
-CREATE OR REPLACE TRIGGER prevent_conflicting_bookings
-BEFORE INSERT ON requests
-FOR EACH ROW
-DECLARE
-    v_is_valid NUMBER;
+CREATE OR REPLACE TRIGGER TG_COTTAGE_FIELDS
+BEFORE INSERT ON COTTAGES FOR EACH ROW
+WHEN (NEW.SIZE_M2 IS NOT NULL )
 BEGIN
-    v_is_valid := is_cottage_available(:NEW.cottage_id, :NEW.checkin_date, :NEW.checkout_date);
 
-    IF v_is_valid = 0 THEN
-        RAISE_APPLICATION_ERROR(-20001, 'The booking conflicts with an existing approved booking for this cottage.');
+    IF :NEW.MAX_PEOPLE_NUM IS NULL THEN
+        :NEW.MAX_PEOPLE_NUM := FLOOR(:NEW.SIZE_M2/25);
+    END IF;
+
+    IF :NEW.ROOMS_NUMBER IS NULL THEN
+        :NEW.ROOMS_NUMBER := FLOOR(:NEW.SIZE_M2/30);
+    END IF;
+
+    IF :NEW.BATHROOMS_NUMBER IS NULL THEN
+        :NEW.BATHROOMS_NUMBER := FLOOR(:NEW.SIZE_M2/50);
     END IF;
 END;
 
@@ -292,6 +297,11 @@ INSERT INTO REVIEWS (REVIEW_ID, COTTAGE_ID, AUTHOR_ID, TEXT, DATE_POSTED, GRADE)
     VALUES (27, 2, 1, NULL, TO_DATE('2024-11-10','YYYY-MM-DD'), 3);
 
 SELECT * FROM REVIEWS;
+
+INSERT INTO ADDRESSES VALUES(9, 'Magical street 77',  '07-777', 9);
+INSERT INTO COTTAGES VALUES(9, 3, 79, 9, NULL, NULL, 1, NULL, 1);
+
+SELECT * FROM COTTAGES;
 -- -- ---------CURSORS
 DROP PROCEDURE SHOW_AVG_PRICE_PER_USER;
 CREATE OR REPLACE PROCEDURE SHOW_AVG_PRICE_PER_USER
@@ -335,12 +345,38 @@ BEGIN
     CLOSE AVERAGE_GRADE_CR;
 END SHOW_AVG_GRADE;
 
+CREATE OR REPLACE PROCEDURE SHOW_REQUEST_PER_CITY
+IS
+    CURSOR CITY_REQ_CR IS
+        SELECT ci.name AS city_name,
+               COUNT(r.request_id) AS total_requests
+        FROM requests r
+        JOIN cottages c ON r.cottage_id = c.cottage_id
+        JOIN addresses a ON c.address_id = a.address_id
+        JOIN cities ci ON a.city_id = ci.city_id
+        GROUP BY ci.name;
+
+    V_NAME VARCHAR2(20);
+    V_TOTAL_REQ NUMBER;
+BEGIN
+    OPEN CITY_REQ_CR_CR;
+    LOOP
+        FETCH CITY_REQ_CR INTO V_NAME, V_TOTAL_REQ;
+        EXIT WHEN CITY_REQ_CR%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('City: ' || V_NAME || ' - Total requests: ' || V_TOTAL_REQ);
+    END LOOP;
+
+    CLOSE CITY_REQ_CR;
+END SHOW_REQUEST_PER_CITY;
+
 -- CHECK CURSOR
 EXEC SHOW_AVG_PRICE_PER_USER;
 
 BEGIN
     SHOW_AVG_GRADE;
 END;
+
+EXEC SHOW_REQUEST_PER_CITY;
 
 -- TESTS
 SELECT COUNT(*), CITIES.NAME FROM COTTAGES
