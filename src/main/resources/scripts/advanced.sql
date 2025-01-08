@@ -6,6 +6,7 @@ INSERT INTO REQUESTS (REQUEST_ID, COTTAGE_ID, CHECKIN_DATE, CHECKOUT_DATE, TOTAL
 INSERT INTO REQUESTS (REQUEST_ID, COTTAGE_ID, CHECKIN_DATE, CHECKOUT_DATE, TOTAL_PRICE, CUSTOMER_ID)
     VALUES (3, 1, TO_DATE('2025-01-01','YYYY-MM-DD'), TO_DATE('2025-01-11','YYYY-MM-DD'), 10, 1);
 INSERT INTO REQUEST_APPROVALS (REQUEST_APPROVAL_ID, DATE_CREATED, IS_APPROVED, REQUEST_ID) VALUES (1, SYSDATE, 1, 1);
+INSERT INTO REQUEST_APPROVALS (REQUEST_APPROVAL_ID, DATE_CREATED, IS_APPROVED, REQUEST_ID) VALUES (2, TO_DATE('2025-01-01','YYYY-MM-DD'), 0, 3);
 
 -- ---------FUNCTIONS  -> IN ORACLE
 CREATE OR REPLACE FUNCTION IS_GRADE_GOOD(V_GRADE NUMBER)
@@ -113,6 +114,34 @@ BEGIN
     RETURN V_TOTAL_PRICE;
 END;
 
+--checks whether the cottage is available during the specified time
+CREATE OR REPLACE FUNCTION is_cottage_available(
+    p_cottage_id NUMBER,
+    p_checkin_date DATE,
+    p_checkout_date DATE
+) RETURN number IS
+    v_conflicting_requests NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_conflicting_requests
+    FROM requests r
+    JOIN request_approvals ra ON r.request_id = ra.request_id
+    WHERE r.cottage_id = p_cottage_id
+      AND ra.is_approved = 1
+      AND (
+           (r.checkin_date <= p_checkin_date AND r.checkout_date >= p_checkin_date) OR
+           (r.checkin_date <= p_checkout_date AND r.checkout_date >= p_checkout_date) OR
+           (r.checkin_date >= p_checkin_date AND r.checkout_date <= p_checkout_date)
+      );
+
+    IF v_conflicting_requests = 0 THEN
+        RETURN 1;
+    ELSE
+        RETURN 0;
+    END IF;
+END;
+
+
 -- FUNCTION CHECK
 SELECT IS_GRADE_GOOD(5) from dual;
 SELECT IS_GRADE_GOOD(3) from dual;
@@ -155,7 +184,28 @@ BEGIN
     WHERE COTTAGE_ID = SECOND_COTTAGE_ID;
 END;
 
--- PRECODURE CHECK
+CREATE OR REPLACE PROCEDURE REMOVE_OLD_REQUESTS(REJECTED_THRESHOLD NUMBER, INACTIVE_THRESHOLD NUMBER)
+AS
+BEGIN
+    DELETE FROM REQUESTS
+    WHERE REQUEST_ID IN (
+        SELECT R.REQUEST_ID
+        FROM REQUESTS R
+        JOIN REQUEST_APPROVALS RA ON R.REQUEST_ID = RA.REQUEST_ID
+        WHERE RA.IS_APPROVED = 0
+          AND RA.DATE_CREATED < SYSDATE - REJECTED_THRESHOLD
+    );
+
+    DELETE FROM REQUESTS
+    WHERE REQUEST_ID NOT IN (
+        SELECT REQUEST_ID
+        FROM REQUEST_APPROVALS
+    )
+      AND CHECKIN_DATE < SYSDATE - INACTIVE_THRESHOLD;
+
+END;
+
+-- PROCEDURE CHECK
 BEGIN
   CHANGE_REVIEW (5, 3);
 END;
@@ -164,6 +214,12 @@ SELECT * FROM REVIEWS;
 
 BEGIN
   EXCHANGE_COTTAGES (4, 5);
+END;
+
+SELECT * FROM COTTAGES;
+
+BEGIN
+  REMOVE_OLD_REQUESTS(7, 180);
 END;
 
 SELECT * FROM COTTAGES;
@@ -209,6 +265,19 @@ BEGIN
 
     V_DAYS := :NEW.CHECKOUT_DATE - :NEW.CHECKIN_DATE;
     :NEW.TOTAL_PRICE := V_DAILY_PRICE * V_DAYS;
+END;
+
+CREATE OR REPLACE TRIGGER prevent_conflicting_bookings
+BEFORE INSERT ON requests
+FOR EACH ROW
+DECLARE
+    v_is_valid NUMBER;
+BEGIN
+    v_is_valid := is_cottage_available(:NEW.cottage_id, :NEW.checkin_date, :NEW.checkout_date);
+
+    IF v_is_valid = 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'The booking conflicts with an existing approved booking for this cottage.');
+    END IF;
 END;
 
 -- TRIGER CHECK
