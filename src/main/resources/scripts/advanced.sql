@@ -69,15 +69,15 @@ AS
   V_FIRST_WEEK_TAX DECIMAL(7, 2) := 0;
   V_SECOND_WEEK_TAX DECIMAL(7, 2) := 0;
 BEGIN
-    SELECT (CHECKOUT_DATE - CHECKIN_DATE), COTTAGE_ID
-    INTO   V_DAYS, V_COTTAGE_ID
-    FROM   REQUESTS
-    WHERE  REQUEST_id = P_REQUEST_ID;
+        SELECT (CHECKOUT_DATE - CHECKIN_DATE), COTTAGE_ID
+        INTO   V_DAYS, V_COTTAGE_ID
+        FROM   REQUESTS
+        WHERE  REQUEST_id = P_REQUEST_ID;
 
-    SELECT MIN_PRICE_PER_DAY
-    INTO V_PRICE_PER_DAY
-    FROM COTTAGES
-    WHERE COTTAGE_ID = V_COTTAGE_ID;
+        SELECT MIN_PRICE_PER_DAY
+        INTO V_PRICE_PER_DAY
+        FROM COTTAGES
+        WHERE COTTAGE_ID = V_COTTAGE_ID;
 
     V_TOTAL_PRICE := V_DAYS * V_PRICE_PER_DAY;
     V_FIRST_WEEK_TAX := 0.36 * 7 + 0.33 * 7* V_PRICE_PER_DAY;
@@ -169,12 +169,94 @@ CREATE OR REPLACE PROCEDURE MAKE_REVIEWS(P_COTTAGE_ID LONG)
 AS
     V_REVIEW NUMBER (4);
 BEGIN
-    FOR i IN 1..2000 LOOP
+    FOR i IN 1..100000 LOOP
         INSERT INTO REVIEWS (REVIEW_ID, COTTAGE_ID, AUTHOR_ID, TEXT, DATE_POSTED, GRADE)
-            VALUES (REVIEWS_SEQ.NEXTVAL, P_COTTAGE_ID, 1, 'GOOD ' || i, TO_DATE('2024-12-10','YYYY-MM-DD'), 5);
+            VALUES (REVIEWS_SEQ.NEXTVAL, P_COTTAGE_ID, 1, Null, sysdate-dbms_random.value(1,10000), dbms_random.value(1,5));
     END LOOP;
     COMMIT;
 END;
+
+select count(*) from reviews;
+exec make_reviews(1);
+CREATE OR REPLACE PROCEDURE MAKE_cottages(P_COTTAGE_ID LONG)
+AS
+    V_REVIEW NUMBER (4);
+BEGIN
+    FOR i IN 1..50000 LOOP
+        INSERT INTO COTTAGES (COTTAGE_ID, NAME, ADDRESS_ID, SIZE_M2, BATHROOMS_NUMBER, ROOMS_NUMBER, MAX_PEOPLE_NUM, MIN_PRICE_PER_DAY, OWNER_ID)
+    VALUES (COTTAGES_SEQ.NEXTVAL, 'cottage'||i, 1, dbms_random.value(1,10000), dbms_random.value(1,10000), dbms_random.value(1,10000), dbms_random.value(1,10000), dbms_random.value(1,10000), 2);
+    END LOOP;
+    COMMIT;
+END;
+
+CREATE OR REPLACE PROCEDURE MAKE_requests(P_COTTAGE_ID LONG)
+AS
+    V_REVIEW NUMBER (4);
+BEGIN
+    FOR i IN 1..50000 LOOP
+    -- INSERT INTO REQUESTS (REQUEST_ID, COTTAGE_ID, CHECKIN_DATE, CHECKOUT_DATE, TOTAL_PRICE, CUSTOMER_ID)
+    -- VALUES (REQUESTS_SEQ.nextval, dbms_random.value(1, 50000), sysdate-dbms_random.value(10, 15), sysdate-dbms_random.value(1, 5), dbms_random.value(1, 100), 1);  
+    INSERT INTO REQUEST_APPROVALS (REQUEST_APPROVAL_ID, DATE_CREATED, IS_APPROVED, REQUEST_ID) VALUES (REQUEST_APPROVALS_SEQ.nextval, SYSDATE-dbms_random.value(10, 15), dbms_random.value(0, 1), dbms_random.value(1, 50000));
+    END LOOP;
+    COMMIT;
+END;
+
+CREATE OR REPLACE PROCEDURE MAKE_COUNTRIES
+AS
+BEGIN
+    FOR i IN 1..50000 LOOP
+        INSERT INTO COUNTRIES (COUNTRY_ID, NAME, LANGUAGE, CURRENCY)
+        VALUES (COUNTRIES_SEQ.NEXTVAL, 'Country ' || i, 'Lang ' || i, 'Cur ' || i);
+    END LOOP;
+    COMMIT;
+END;
+
+CREATE OR REPLACE PROCEDURE MAKE_CITIES
+AS
+BEGIN
+    FOR i IN 1..50000 LOOP
+        INSERT INTO CITIES (CITY_ID, NAME, POPULATION, CITY_SIZE, COUNTRY_ID)
+        VALUES (
+            CITIES_SEQ.NEXTVAL,
+            'City ' || i,
+            dbms_random.value(10, 1000), -- Random population
+            dbms_random.value(50, 1000),     -- Random size
+            dbms_random.value(1, 50000)         -- Random country_id (assuming 10 countries)
+        );
+    END LOOP;
+    COMMIT;
+END;
+
+CREATE OR REPLACE PROCEDURE MAKE_ADDRESSES
+AS
+BEGIN
+    FOR i IN 1..50000 LOOP
+        INSERT INTO ADDRESSES (ADDRESS_ID, STREET, POSTAL_CODE, CITY_ID)
+        VALUES (
+            ADDRESSES_SEQ.NEXTVAL,
+            'Street ' || i,
+            dbms_random.value(10000, 99999), -- Random postal code
+            dbms_random.value(1, 50000)         -- Random city_id (assuming 50 cities)
+        );
+    END LOOP;
+    COMMIT;
+END;
+/
+
+
+
+
+
+
+CREATE OR REPLACE TYPE review_type AS OBJECT (
+    REVIEW_ID    NUMBER,
+    COTTAGE_ID   NUMBER,
+    AUTHOR_ID    NUMBER,
+    TEXT         VARCHAR2(1000),
+    DATE_POSTED  DATE,
+    GRADE        NUMBER
+);
+/
 
 CREATE OR REPLACE PROCEDURE CHANGE_REVIEW (P_REVIEW_ID LONG, P_COTTAGE_ID LONG)
 AS
@@ -229,7 +311,10 @@ END;
 
 -- PROCEDURE CHECK
 BEGIN
-  MAKE_REVIEWS (1);
+  MAKE_reviews (1);
+END;
+BEGIN
+  MAKE_cottages (1);
 END;
 
 SELECT COUNT(*) FROM REVIEWS WHERE COTTAGE_ID = 1;
@@ -451,11 +536,14 @@ SELECT USERNAME AS NAME ,COUNT(COTTAGE_ID) FROM COTTAGES
     FETCH FIRST 2 ROWS ONLY;
 
 -- OPTIMALIZATION TESTS
+alter session set optimizer_mode = first_rows;
+exec make_cottages(1);
 EXPLAIN PLAN FOR
-SELECT * FROM COTTAGES;
 
+
+select count(*) from reviews ;
 SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
-
+select * from cottages;
 
 EXPLAIN PLAN FOR
 SELECT OWNER_ID, COUNT(*) FROM COTTAGES GROUP BY OWNER_ID HAVING COUNT (*) > 2;
