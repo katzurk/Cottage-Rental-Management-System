@@ -1,11 +1,7 @@
-package MojaChata.pl.app;
+package MojaChata.pl.app.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import MojaChata.pl.app.model.Cottage;
-import MojaChata.pl.app.model.CottageRepository;
-import MojaChata.pl.app.model.Request;
-import MojaChata.pl.app.model.RequestRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
