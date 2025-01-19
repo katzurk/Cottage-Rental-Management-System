@@ -32,7 +32,7 @@ public class User {
 
     User() {}
 
-    User(String username, String passwordHash) {
+    public User(String username, String passwordHash) {
 
     this.username = username;
     this.passwordHash = passwordHash;
