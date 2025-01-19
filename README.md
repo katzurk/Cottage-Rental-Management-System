@@ -14,6 +14,10 @@ http://localhost:8080
 
 Gotowe!
 
+### Uruchomienie testów
+z głównego katalogu /app uruchamiamy w terminalu:
+./mvnw test
+
 ## Wymagania
     • wykorzystanie bazy danych typu relacyjnego (W - 100%)
     • kod aplikacji napisany w języku java z wykorzystaniem framework'u spring
