@@ -43,7 +43,7 @@ public class Request {
         this.cottage = cottage;
         this.customerId = customerId;
         this.checkInDate = LocalDate.now();
-        this.checkOutDate = LocalDate.now();
+        this.checkOutDate = LocalDate.now().plusDays(1);
         this.totalPrice = 0;
     }
 
