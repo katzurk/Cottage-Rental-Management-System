@@ -81,7 +81,7 @@ public class Cottage {
     // standard constructors / setters / getters / toString
     Cottage() {}
 
-    Cottage(String name, Address address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, User owner) {
+    public Cottage(String name, Address address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, User owner) {
 
       this.name = name;
       this.address = address;
