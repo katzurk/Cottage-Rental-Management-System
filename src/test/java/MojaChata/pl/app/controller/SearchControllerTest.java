@@ -64,9 +64,9 @@ class SearchControllerTest {
                 "Poland".equals(searchDTO.getAddressCountry()))))
                 .thenReturn(Collections.singletonList(mockCottage));
 
-        when(cottageService.searchCottage(Mockito.argThat(searchDTO ->
-                !"Poland".equals(searchDTO.getAddressCountry()))))
-                .thenReturn(Collections.emptyList());
+        // when(cottageService.searchCottage(Mockito.argThat(searchDTO ->
+        //         !"Poland".equals(searchDTO.getAddressCountry()))))
+        //         .thenReturn(Collections.emptyList());
 
         mockMvc.perform(get("/search")
                         .param("addressCountry", "Poland"))

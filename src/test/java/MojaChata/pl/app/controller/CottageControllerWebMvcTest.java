@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-
 import MojaChata.pl.app.config.SecurityConfig;
 import MojaChata.pl.app.model.CityRepository;
 import MojaChata.pl.app.model.CottageRepository;
@@ -56,5 +56,45 @@ public class CottageControllerWebMvcTest {
             .sessionAttr("loggedInUser", new User("name", "pass")))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("<table>")));
+    }
+
+    @Test
+    public void testTryingToSaveCottageWitoutNameWillShowError() throws Exception {
+
+        mockMvc.perform(post("/addcottage")
+        .accept(MediaType.TEXT_HTML)
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        .content("name="
+            + "&address.street=streete"
+            + "&address.postalCode=0000"
+            + "&address.city.id=16"
+            + "&size_m2=70"
+            + "&roomsNumber=7"
+            + "&bathroomsNumber=10"
+            + "&maxPeopleNum=3"
+            + "&minPricePerDay=77.7")
+        .sessionAttr("loggedInUser", new User("name", "pass")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("<span class=\"error-message\">Name is mandatory</span>")));
+    }
+
+    @Test
+    public void testCanSaveValidCottage() throws Exception {
+
+        mockMvc.perform(post("/addcottage")
+            .accept(MediaType.TEXT_HTML)
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content("name=new-great-cottage-name"
+                + "&address.street=streete"
+                + "&address.postalCode=0000"
+                + "&address.city.id=16"
+                + "&size_m2=70"
+                + "&roomsNumber=7"
+                + "&bathroomsNumber=10"
+                + "&maxPeopleNum=3"
+                + "&minPricePerDay=77.7")
+            .sessionAttr("loggedInUser", new User("name", "pass")))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/my-cottages"));
     }
 }

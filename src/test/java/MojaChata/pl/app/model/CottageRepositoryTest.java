@@ -1,6 +1,9 @@
 package MojaChata.pl.app.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,5 +47,19 @@ class CottageRepositoryTest{
     @Test
 	public void canSearchForCottageByAdressAndCityAndMaxPrice (){
 		assertEquals(1, cottageRepository.searchCottage(null, "Warsaw", "Mini 5", null, 129, null, null, null).size());
+	}
+
+	@Test
+	public void canInsertNewCottage() {
+		// given
+		Cottage newCottage = new Cottage("test-cottage", new Address(), 1, 2, 4, 8, BigDecimal.valueOf(7), new User("userName", "pass"));
+
+		// when
+		Cottage savedCottage = cottageRepository.save(newCottage);
+
+		// then
+		Optional<Cottage> foundCottage = cottageRepository.findById(savedCottage.getId());
+		assertTrue(foundCottage.isPresent());
+		assertEquals("test-cottage", foundCottage.get().getName());
 	}
 }

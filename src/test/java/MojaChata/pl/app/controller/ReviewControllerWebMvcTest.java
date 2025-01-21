@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import MojaChata.pl.app.config.SecurityConfig;
+import MojaChata.pl.app.model.Cottage;
 import MojaChata.pl.app.model.CottageRepository;
 import MojaChata.pl.app.model.Review;
 import MojaChata.pl.app.model.ReviewRepository;
@@ -63,5 +66,22 @@ public class ReviewControllerWebMvcTest {
             .sessionAttr("loggedInUser", new User("name", "pass")))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Test review")));
+    }
+
+    @Test
+    public void testCanSaveValidReview() throws Exception {
+
+        when(cottageRepository.findById(2L)).thenReturn(Optional.of(new Cottage()));
+
+        mockMvc.perform(post("/cottages/2/reviews/addReview")
+            .accept(MediaType.TEXT_HTML)
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content("text=cool cottage"
+                + "&grade=4")
+            .sessionAttr("loggedInUser", new User("name", "pass")))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/cottages/2/reviews"));
+
+        verify(reviewRepository).save(argThat(rev -> "cool cottage".equals(rev.getText()) && rev.getGrade() == 4));
     }
 }
