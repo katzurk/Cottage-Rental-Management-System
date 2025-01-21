@@ -79,7 +79,7 @@ public class Cottage {
     private List<Restriction> restrictions;
 
     // standard constructors / setters / getters / toString
-    Cottage() {}
+    public Cottage() {}
 
     public Cottage(String name, Address address, int size_m2, int roomsNumber, int bathroomsNumber, int maxPeopleNum, BigDecimal price, User owner) {
 

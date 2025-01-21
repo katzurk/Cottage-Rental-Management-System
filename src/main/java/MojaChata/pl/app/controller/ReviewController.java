@@ -62,7 +62,7 @@ public class ReviewController {
 
         if (result.hasErrors()) {
             logger.warn("-- add review has errors: " + result.getAllErrors());
-            return "add-cottage";
+            return "add-review";
         }
 
         Cottage cottage = cottageRepository.findById(cottageId)
