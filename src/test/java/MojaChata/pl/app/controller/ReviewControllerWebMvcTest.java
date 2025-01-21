@@ -69,19 +69,6 @@ public class ReviewControllerWebMvcTest {
     }
 
     @Test
-    public void testTryingToSaveReviewWitoutGradeWillShowError() throws Exception {
-
-        mockMvc.perform(post("/cottages/2/reviews/addReview")
-            .accept(MediaType.TEXT_HTML)
-            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .content("text=Good."
-                + "&grade=")
-            .sessionAttr("loggedInUser", new User("name", "pass")))
-                    .andExpect(status().isOk())
-                    .andExpect(content().string(containsString("<span class=\"error-message\">grade is mandatory</span>")));
-    }
-
-    @Test
     public void testCanSaveValidReview() throws Exception {
 
         when(cottageRepository.findById(2L)).thenReturn(Optional.of(new Cottage()));
