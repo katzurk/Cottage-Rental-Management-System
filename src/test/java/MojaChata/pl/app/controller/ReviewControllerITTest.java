@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import MojaChata.pl.app.model.ReviewRepository;
 import MojaChata.pl.app.model.User;
 import MojaChata.pl.app.model.UserRepository;
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -23,6 +26,9 @@ class ReviewControllerITTest {
     private MockMvc mockMvc;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+
 
     @Test
     public void testReviewsEmpty() throws Exception {
@@ -55,6 +61,28 @@ class ReviewControllerITTest {
             .sessionAttr("loggedInUser", user))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/cottages/1/reviews"));
+    }
+
+    @Test
+    public void testRedirectToLoginWhenNotLoggedInAndRemovingReviews() throws Exception{
+        mockMvc.perform(get("/cottages/1/reviews/delete/1"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    @Transactional
+    public void testRemoveReviewOk() throws Exception{
+		User user = userRepository.findById(1L).get();
+
+        assertTrue(reviewRepository.findById(1L).isPresent());
+
+        mockMvc.perform(get("/cottages/1/reviews/delete/1")
+        .sessionAttr("loggedInUser", user))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/cottages/1/reviews"));
+
+        assertTrue(reviewRepository.findById(1L).isEmpty());
     }
 }
 
