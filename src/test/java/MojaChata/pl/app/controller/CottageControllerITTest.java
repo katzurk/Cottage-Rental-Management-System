@@ -3,16 +3,25 @@ package MojaChata.pl.app.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.None;
+
+import MojaChata.pl.app.model.Cottage;
+import MojaChata.pl.app.model.CottageRepository;
 import MojaChata.pl.app.model.User;
 import MojaChata.pl.app.model.UserRepository;
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,6 +31,8 @@ class CottageControllerITTest {
     private MockMvc mockMvc;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CottageRepository cottageRepository;
 
     @Test
     public void testMyCottagesRequestForNotLoggedUserShouldShowLoginPrompt() throws Exception {
@@ -85,5 +96,28 @@ class CottageControllerITTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/my-cottages"));
     }
+
+    @Test
+    public void testRedirectToLoginWhenNotLoggedInAndRemovingCottage() throws Exception{
+        mockMvc.perform(get("/delete/1"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    @Transactional
+    public void testRemoveCottageOk() throws Exception{
+		User user = userRepository.findById(1L).get();
+
+        assertTrue(cottageRepository.findById(1L).isPresent());
+
+        mockMvc.perform(get("/delete/1")
+        .sessionAttr("loggedInUser", user))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/my-cottages"));
+
+        assertTrue(cottageRepository.findById(1L).isEmpty());
+    }
+
 }
 
