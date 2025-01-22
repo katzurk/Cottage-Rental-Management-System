@@ -95,10 +95,13 @@ public class CottageController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteCottage(@PathVariable("id") long id, Model model) {
+    public String deleteCottage(@PathVariable("id") long id, Model model, @SessionAttribute(value = "loggedInUser", required = true) User login) {
         Cottage cottage = cottageRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid cottage Id:" + id));
-        cottageRepository.delete(cottage);
+
+        if (login.getId() == cottage.getOwner().getId()){
+            cottageRepository.delete(cottage);
+        }
         return "redirect:/my-cottages";
     }
 }
