@@ -1,5 +1,7 @@
 # MojaChata.pl - aplikacja do wynajmowania mieszkań
 
+- [English](README.md)
+
 ## Na przedmiot PAP
 
 ## Autorzy:
